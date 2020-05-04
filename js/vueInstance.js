@@ -7,7 +7,6 @@ let fileInfo = new Vue({
         addFile: function (files) {
             for (let i = 0; i < files.length; i++) {
                 let size = calculateSize(files[i].size);
-
                 this.fileList.push({ id: i, name: files[i].name, size: size, compressedSize: '-', status: 'processing' });
             }
         },
