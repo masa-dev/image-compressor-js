@@ -43,7 +43,6 @@ btn.addEventListener('click', function () {
         }
     }
 
-
     //zipでダウンロード
     let zip = new JSZip();
 
@@ -59,8 +58,19 @@ btn.addEventListener('click', function () {
 }, false)
 
 function compressImages(files) {
-    const imageQuality = document.getElementById('quality').value;
+    const imageQuality = parseFloat(document.getElementById('quality').value);
+    let totalCount = 0, count = 0;
     compressedFiles.splice(0, compressedFiles.length);
+
+    //ボタンを無効にする
+    $('#execute').attr('disabled', true);
+
+    //合計の処理回数
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].type == 'image/jpeg') {
+            totalCount++;
+        }
+    }
 
     //画像の圧縮
     for (let i = 0; i < files.length; i++) {
@@ -75,7 +85,7 @@ function compressImages(files) {
                     $('#progress_' + i).html('Finished')
 
                     let size = calculateSize(this.result.size);
-                    let distance = Math.floor((this.result.size / files[i].size) * 100 * 10) / 10;
+                    let distance = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
 
                     //fileInfo とデータを合わせて変更する
                     for (let j = 0; j < fileInfo.fileList.length; j++) {
@@ -84,8 +94,15 @@ function compressImages(files) {
                             fileInfo.fileList[j].status = 'success';
                         }
                     }
+
+                    count++;
+
+                    if (count == totalCount) {
+                        //ボタンを有効にする
+                        $('#execute').attr('disabled', false);
+                    }
                 },
-                mineType: 'image/jpeg',
+                mineType: 'auto',
                 error(err) {
                     alert('エラーが発生しました\n' + err);
                 }

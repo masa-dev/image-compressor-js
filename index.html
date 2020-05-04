@@ -24,13 +24,25 @@
     </div>
     <div class="form-group">
       <label for="quality">品質</label>
-      <input type="number" id="quality" class="form-control" value="60" min="0" max="100">
+      <select class="form-control" id="quality">
+        <option>0</option>
+        <option>0.1</option>
+        <option>0.2</option>
+        <option>0.3</option>
+        <option>0.4</option>
+        <option>0.5</option>
+        <option>0.6</option>
+        <option>0.7</option>
+        <option selected>0.8</option>
+        <option>0.9</option>
+        <option>1</option>
+      </select>
     </div>
     <div class="attention">
       <p class="attention">※ファイルは<strong>JPEG形式</strong>を選択してください。</p>
     </div>
     <div>
-      <button id="execute" type="button" class="btn btn-primary btn-block">画像ファイルを圧縮</button>
+      <button id="execute" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
     </div>
     <div id="file-info">
       <table>
