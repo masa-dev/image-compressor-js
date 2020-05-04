@@ -6,13 +6,9 @@ let fileInfo = new Vue({
     methods: {
         addFile: function (files) {
             for (let i = 0; i < files.length; i++) {
-                let size = files[i].size / 1024;
-                if (size > 1024) {
-                    size = Math.floor(size / 1024 * 10) / 10 + 'MB';
-                } else {
-                    size = Math.floor(size * 10) / 10 + 'KB';
-                }
-                this.fileList.push({ id: i, name: files[i].name, size: size, status: 'processing' });
+                let size = calculateSize(files[i].size);
+
+                this.fileList.push({ id: i, name: files[i].name, size: size, compressedSize: 'KB', status: 'processing' });
             }
         },
         deleteFile: function () {
@@ -21,6 +17,14 @@ let fileInfo = new Vue({
         dropFile: function (files) {
             this.deleteFile();
             this.addFile(files);
+            this.resetProgressBar(files.length);
+        },
+        resetProgressBar(length) {
+            for (let i = 0; i < length; i++) {
+                $('#progress_' + i).removeClass('bg-danger bg-success');
+                $('#progress_' + i).addClass('bg-info progress-bar-striped');
+                $('#progress_' + i).html('Processing');
+            }
         }
     }
 })

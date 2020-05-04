@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>image compressor</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -37,6 +38,7 @@
           <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
             <td class="file-name">{{ file.name }}</td>
             <td class="file-size">{{ file.size }}</td>
+            <td class="compressed-size">{{ file.compressedSize }}</td>
             <td class="progress-bar-area">
               <div class="progress">
                 <div v-bind:id="'progress_'+file.id"

@@ -1,29 +1,42 @@
 table {
     width: 100%;
-    margin: auto;
+    margin-bottom: 15px;
     border: solid 1px rgb(194, 194, 194);
     border-collapse: collapse;
     border-spacing: 0;
+    table-layout: fixed
 }
 
 td {
-    padding: 5px 15px;
+    padding: 5px 10px;
     border-top: solid 1px rgb(194, 194, 194);
 }
 
 td.file-name {
-    width: 50%;
+    max-width: 40%;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 td.file-size {
     width: 15%;
-    font-size: small;
+    font-size: 12px;
     color: rgb(64, 117, 113);
 }
 
+td.compressed-size {
+    width: 25%;
+    font-size: 12px;
+    color: rgb(50, 155, 50);
+}
+
 td.progress-bar-area {
-    width: 35%;
+    width: 20%;
+}
+
+@media screen and (max-width: 600px) {
+    td {
+        padding: 5px;
+    }
 }
