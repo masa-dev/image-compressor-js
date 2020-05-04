@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fileList.css">
 </head>
 
 <body>
@@ -30,6 +31,23 @@
     <div>
       <button id="execute" type="button" class="btn btn-primary btn-block">画像ファイルを圧縮</button>
     </div>
+    <div id="file-info">
+      <table>
+        <tbody>
+          <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
+            <td class="file-name">{{ file.name }}</td>
+            <td class="file-size">{{ file.size }}</td>
+            <td class="progress-bar-area">
+              <div class="progress">
+                <div v-bind:id="'progress_'+file.id"
+                  class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -42,9 +60,12 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/fengyuanchen/compressorjs/dist/compressor.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="js/vueInstance.js"></script>
   <script src="js/compress.js"></script>
 </body>
 

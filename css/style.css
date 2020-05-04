@@ -47,6 +47,14 @@ p.attention {
     margin-bottom: 5px;
 }
 
+.progress-bar-area {
+    width: 100px;
+}
+
+button#execute {
+    margin-bottom: 15px;
+}
+
 @media screen and (max-width: 600px) {
     html {
         touch-action: manipulation;

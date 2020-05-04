@@ -22,7 +22,13 @@ fileArea.addEventListener('drop', function (evt) {
 
     console.log(droppedFiles);
     console.log(droppedFiles[0].size / 1024 / 1024 + 'Mb')
+
+    fileInfo.dropFile(droppedFiles);
 });
+
+fileInput.addEventListener('change', function (evt) {
+    fileInfo.dropFile(evt.target.files)
+}, false)
 
 btn.addEventListener('click', function () {
     let tempFiles;
@@ -43,12 +49,18 @@ btn.addEventListener('click', function () {
 
     const imageQuality = document.getElementById('quality').value;
 
+    compressedFiles.splice(0, compressedFiles.length)
     for (let i = 0; i < tempFiles.length; i++) {
         if (tempFiles[i].type == 'image/jpeg') {
+            //非同期
             const img = new Compressor(tempFiles[i], {
                 quality: imageQuality,
                 success(result) {
                     compressedFiles.push(result)
+                    $('#progress_' + i).removeClass('bg-info');
+                    $('#progress_' + i).addClass('bg-success');
+                    $('#progress_' + i).html('Finished')
+                    fileInfo.fileList.status = 'success';
                 },
                 mineType: 'image/jpeg',
                 error(err) {
@@ -56,13 +68,17 @@ btn.addEventListener('click', function () {
                 }
             })
         }
-
+        else {
+            $('#progress_' + i).removeClass('bg-info');
+            $('#progress_' + i).addClass('bg-danger');
+            $('#progress_' + i).html('Failure')
+            fileInfo.fileList.status = 'Different file';
+        }
     }
-
-    console.log(compressedFiles);
 
     //zipでダウンロード
     let zip = new JSZip();
+
     for (let i = 0; i < compressedFiles.length; i++) {
         zip.file(compressedFiles[i].name, compressedFiles[i], { base64: true });
     }
@@ -71,4 +87,9 @@ btn.addEventListener('click', function () {
         //FileSaver.js
         saveAs(content, 'images.zip');
     });
+
 }, false)
+
+function compressImages(files) {
+    
+}

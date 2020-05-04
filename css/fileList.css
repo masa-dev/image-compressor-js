@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    margin: auto;
+    border: solid 1px rgb(194, 194, 194);
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    padding: 5px 15px;
+    border-top: solid 1px rgb(194, 194, 194);
+}
+
+td.file-name {
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td.file-size {
+    width: 15%;
+    font-size: small;
+    color: rgb(64, 117, 113);
+}
+
+td.progress-bar-area {
+    width: 35%;
+}
