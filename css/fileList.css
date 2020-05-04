@@ -10,6 +10,7 @@ table {
     border: solid 1px rgb(194, 194, 194);
     border-collapse: collapse;
     border-spacing: 0;
+    /* .file-name の省略処理に必要 */
     table-layout: fixed;
 }
 
@@ -29,12 +30,14 @@ td.file-size {
     width: 15%;
     font-size: 12px;
     color: rgb(64, 117, 113);
+    text-align: center;
 }
 
 td.compressed-size {
     width: 25%;
     font-size: 12px;
     color: rgb(50, 155, 50);
+    text-align: center;
 }
 
 td.progress-bar-area {
