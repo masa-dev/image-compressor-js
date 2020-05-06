@@ -65,6 +65,15 @@ function compressImages(files) {
     //ボタンを無効にする
     $('#execute').attr('disabled', true);
 
+    //resultOfCompression を見えるようにする
+    resultOfCompression.resetValue();
+    if (files.length == 0) {
+        resultOfCompression.seen = false;
+    }
+    else if (resultOfCompression.seen === false) {
+        resultOfCompression.seen = true;
+    }
+
     //合計の処理回数
     for (let i = 0; i < files.length; i++) {
         if (files[i].type == 'image/jpeg') {
@@ -85,18 +94,20 @@ function compressImages(files) {
                     $('#progress_' + i).html('Finished')
 
                     let size = calculateSize(this.result.size);
-                    let distance = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
+                    let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
 
                     //fileInfo とデータを合わせて変更する
                     for (let j = 0; j < fileInfo.fileList.length; j++) {
                         if (fileInfo.fileList[j].name == this.result.name) {
-                            fileInfo.fileList[j].compressedSize = size + ' (-' + distance + '%)';
+                            fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
                             fileInfo.fileList[j].status = 'success';
                         }
                     }
 
-                    count++;
+                    //resultOfCompression とデータを合わせて変更する
+                    resultOfCompression.increaseValue(files[i].size, this.result.size);
 
+                    count++;
                     if (count == totalCount) {
                         //ボタンを有効にする
                         $('#execute').attr('disabled', false);

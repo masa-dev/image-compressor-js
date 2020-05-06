@@ -38,11 +38,14 @@
         <option>1</option>
       </select>
     </div>
-    <div class="attention">
+    <div id="attention">
       <p class="attention">※ファイルは<strong>JPEG形式</strong>を選択してください。</p>
     </div>
     <div>
       <button id="execute" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
+    </div>
+    <div id="result">
+      <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }} ({{ differencePercent }}%)</span> 圧縮しました。</p>
     </div>
     <div id="file-info">
       <table>

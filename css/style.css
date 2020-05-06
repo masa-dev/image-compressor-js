@@ -37,7 +37,7 @@ h1 {
     margin: auto;
 }
 
-div.attention {
+div#attention {
     margin-bottom: 20px;
 }
 
@@ -47,12 +47,24 @@ p.attention {
     margin-bottom: 5px;
 }
 
-.progress-bar-area {
-    width: 100px;
+.result-text {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 5px;
+    background-color: honeydew;
+}
+
+.result-number {
+    color: rgb(56, 153, 56);
 }
 
 button#execute {
     margin-bottom: 15px;
+}
+
+.progress-bar-area {
+    width: 100px;
 }
 
 @media screen and (max-width: 600px) {
