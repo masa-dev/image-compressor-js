@@ -1,6 +1,5 @@
 let fileArea = document.getElementById('drag-drop-area');
 let fileInput = document.getElementById('file-input');
-let btn = document.getElementById('execute');
 let droppedFiles = [];  //画像ファイルを格納する変数
 let compressedFiles = [];
 
@@ -34,28 +33,6 @@ fileInput.addEventListener('change', function (evt) {
     compressImages(droppedFiles);
 }, false)
 
-btn.addEventListener('click', function () {
-    //ファイルが選択されていないとき
-    if (compressedFiles[0] == null) {
-        if (document.getElementById('file-input').files[0] == null) {
-            window.alert('ファイルが選択されていません');
-            return;
-        }
-    }
-
-    //zipでダウンロード
-    let zip = new JSZip();
-
-    for (let i = 0; i < compressedFiles.length; i++) {
-        zip.file(compressedFiles[i].name, compressedFiles[i], { base64: true });
-    }
-    //zipファイル作成
-    zip.generateAsync({ type: 'blob' }).then(function (content) {
-        //FileSaver.js
-        saveAs(content, 'images.zip');
-    });
-
-}, false)
 
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
@@ -63,7 +40,12 @@ function compressImages(files) {
     compressedFiles.splice(0, compressedFiles.length);
 
     //ボタンを無効にする
-    $('#execute').attr('disabled', true);
+    $('#file-input').attr('disabled', true);
+    $('#download-btn').attr('disabled', true);
+    $('#execute-btn').attr('disabled', true);
+
+    //ロード画像を表示する
+    displayLoadingAnimation();
 
     //resultOfCompression を見えるようにする
     resultOfCompression.resetValue();
@@ -110,7 +92,12 @@ function compressImages(files) {
                     count++;
                     if (count == totalCount) {
                         //ボタンを有効にする
-                        $('#execute').attr('disabled', false);
+                        $('#file-input').attr('disabled', false);
+                        $('#download-btn').attr('disabled', false);
+                        $('#execute-btn').attr('disabled', false);
+
+                        //ロード画像を消す
+                        deleteLoadingAnimation();
                     }
                 },
                 mineType: 'auto',
@@ -146,4 +133,12 @@ function calculateSize(bites) {
     }
 
     return bites;
+}
+
+function displayLoadingAnimation() {
+    $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif">');
+}
+
+function deleteLoadingAnimation() {
+    $('#load-image').html('');
 }

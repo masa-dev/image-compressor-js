@@ -59,12 +59,19 @@ p.attention {
     color: rgb(56, 153, 56);
 }
 
-button#execute {
+button {
     margin-bottom: 15px;
 }
 
 .progress-bar-area {
     width: 100px;
+}
+
+#loading {
+    width: 60px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
 }
 
 @media screen and (max-width: 600px) {
@@ -84,5 +91,8 @@ button#execute {
     }
     input {
         font-size: medium;
+    }
+    #loading {
+        width: 45px;
     }
 }
