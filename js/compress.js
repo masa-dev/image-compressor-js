@@ -52,10 +52,10 @@ function compressImages(files) {
     } else {
         maxHeight = parseFloat(document.getElementById('max-height').value);
     }
-    
+
     //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
 
-    if(files.length != 0) {
+    if (files.length != 0) {
         //ボタンを無効にする
         $('#file-input').attr('disabled', true);
         $('#download-btn').attr('disabled', true);
@@ -76,66 +76,67 @@ function compressImages(files) {
 
     //合計の処理回数
     for (let i = 0; i < files.length; i++) {
-        if (files[i].type == 'image/jpeg') {
-            totalCount++;
-        }
+        totalCount++;
     }
 
     //画像の圧縮
     for (let i = 0; i < files.length; i++) {
-        if (files[i].type == 'image/jpeg') {
-            //非同期
-            const img = new Compressor(files[i], {
-                maxWidth: maxWidth,
-                maxHeight: maxHeight,
-                quality: imageQuality,
-                success(result) {
-                    compressedFiles.push(result)
-                    $('#progress_' + i).removeClass('bg-info progress-bar-striped');
-                    $('#progress_' + i).addClass('bg-success');
-                    $('#progress_' + i).html('Finished')
-
-                    let size = calculateSize(this.result.size);
-                    let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
-
-                    //fileInfo とデータを合わせて変更する
-                    for (let j = 0; j < fileInfo.fileList.length; j++) {
-                        if (fileInfo.fileList[j].name == this.result.name) {
-                            fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
-                            fileInfo.fileList[j].status = 'success';
-                        }
-                    }
-
-                    //resultOfCompression とデータを合わせて変更する
-                    resultOfCompression.increaseValue(files[i].size, this.result.size);
-
-                    count++;
-                    if (count == totalCount) {
-                        //ボタンを有効にする
-                        $('#file-input').attr('disabled', false);
-                        $('#download-btn').attr('disabled', false);
-                        $('#execute-btn').attr('disabled', false);
-
-                        //ロード画像を消す
-                        deleteLoadingAnimation();
-                    }
-                },
-                mineType: 'auto',
-                error(err) {
-                    alert('エラーが発生しました\n' + err);
-                }
-            })
-        }
-        else {
-            setTimeout(() => {
+        //非同期
+        const img = new Compressor(files[i], {
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+            quality: imageQuality,
+            success(result) {
+                compressedFiles.push(result)
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
-                $('#progress_' + i).addClass('bg-danger');
-                $('#progress_' + i).html('Failure')
-                fileInfo.fileList.status = 'Different file';
-            }, 100)
-        }
+                $('#progress_' + i).addClass('bg-success');
+                $('#progress_' + i).html('Finished')
+
+                let size = calculateSize(this.result.size);
+                let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
+
+                //fileInfo とデータを合わせて変更する
+                for (let j = 0; j < fileInfo.fileList.length; j++) {
+                    if (fileInfo.fileList[j].name == this.result.name) {
+                        fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
+                        fileInfo.fileList[j].status = 'success';
+                    }
+                }
+
+                //resultOfCompression とデータを合わせて変更する
+                resultOfCompression.increaseValue(files[i].size, this.result.size);
+
+                count++;
+                if (count == totalCount) {
+                    //ボタンを有効にする
+                    $('#file-input').attr('disabled', false);
+                    $('#download-btn').attr('disabled', false);
+                    $('#execute-btn').attr('disabled', false);
+
+                    //ロード画像を消す
+                    deleteLoadingAnimation();
+                }
+            },
+            mineType: 'auto',
+            convertSize: Infinity,
+            error(err) {
+                alert('エラーが発生しました\n' + err);
+            }
+        })
     }
+    /*
+    else {
+        //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
+        setTimeout(() => {
+            $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+            $('#progress_' + i).addClass('bg-danger');
+            $('#progress_' + i).html('Failure')
+            fileInfo.fileList.status = 'Different file';
+        }, 100)
+    }
+    */
 }
+
 
 function calculateSize(bites) {
     // ** は累乗の計算
