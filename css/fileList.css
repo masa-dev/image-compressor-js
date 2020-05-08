@@ -22,7 +22,7 @@ td {
 
 td.file-name {
     font-size: 14px;
-    max-width: 40%;
+    max-width: 37%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -36,7 +36,7 @@ td.file-size {
 }
 
 td.compressed-size {
-    width: 22%;
+    width: 25%;
     font-size: 12px;
     color: rgb(50, 155, 50);
     text-align: center;
