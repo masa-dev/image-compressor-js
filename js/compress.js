@@ -39,13 +39,15 @@ function compressImages(files) {
     let totalCount = 0, count = 0;
     compressedFiles.splice(0, compressedFiles.length);
 
-    //ボタンを無効にする
-    $('#file-input').attr('disabled', true);
-    $('#download-btn').attr('disabled', true);
-    $('#execute-btn').attr('disabled', true);
+    if(files.length != 0) {
+        //ボタンを無効にする
+        $('#file-input').attr('disabled', true);
+        $('#download-btn').attr('disabled', true);
+        $('#execute-btn').attr('disabled', true);
 
-    //ロード画像を表示する
-    displayLoadingAnimation();
+        //ロード画像を表示する
+        displayLoadingAnimation();
+    }
 
     //resultOfCompression を見えるようにする
     resultOfCompression.resetValue();
