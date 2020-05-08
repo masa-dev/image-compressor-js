@@ -36,8 +36,22 @@ fileInput.addEventListener('change', function (evt) {
 
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
+    let maxWidth, maxHeight;
     let totalCount = 0, count = 0;
     compressedFiles.splice(0, compressedFiles.length);
+
+    //maxWidth と maxHeight の選択していないときに Infinity にする
+    if (document.getElementById('max-width').value == "") {
+        maxWidth = Infinity;
+    } else {
+        maxWidth = parseFloat(document.getElementById('max-width').value);
+    }
+
+    if (document.getElementById('max-height').value == "") {
+        maxHeight = Infinity;
+    } else {
+        maxHeight = parseFloat(document.getElementById('max-height').value);
+    }
 
     if(files.length != 0) {
         //ボタンを無効にする
@@ -70,6 +84,8 @@ function compressImages(files) {
         if (files[i].type == 'image/jpeg') {
             //非同期
             const img = new Compressor(files[i], {
+                maxWidth: maxWidth,
+                maxHeight: maxHeight,
                 quality: imageQuality,
                 success(result) {
                     compressedFiles.push(result)
