@@ -53,7 +53,7 @@ function compressImages(files) {
         maxHeight = parseFloat(document.getElementById('max-height').value);
     }
     
-    console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
+    //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
 
     if(files.length != 0) {
         //ボタンを無効にする
