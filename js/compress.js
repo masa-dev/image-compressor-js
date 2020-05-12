@@ -38,6 +38,7 @@ function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
     let maxWidth, maxHeight;
     let totalCount = 0, count = 0;
+    let errorFlag = false;
     compressedFiles.splice(0, compressedFiles.length);
 
     //maxWidth と maxHeight の選択していないときに Infinity にする
@@ -86,6 +87,8 @@ function compressImages(files) {
             maxWidth: maxWidth,
             maxHeight: maxHeight,
             quality: imageQuality,
+            mineType: 'auto',
+            convertSize: Infinity,
             success(result) {
                 compressedFiles.push(result)
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
@@ -117,10 +120,28 @@ function compressImages(files) {
                     deleteLoadingAnimation();
                 }
             },
-            mineType: 'auto',
-            convertSize: Infinity,
             error(err) {
-                alert('エラーが発生しました\n' + err);
+                errorFlag = true;
+
+                //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
+                setTimeout(() => {
+                    $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                    $('#progress_' + i).addClass('bg-danger');
+                    $('#progress_' + i).html('Failure')
+                    fileInfo.fileList.status = 'file error';
+                }, 100)
+
+                if (errorFlag === false) {
+                    alert('エラーが発生しました\n' + err);
+
+                    //ボタンを有効にする
+                    $('#file-input').attr('disabled', false);
+                    $('#download-btn').attr('disabled', false);
+                    $('#execute-btn').attr('disabled', false);
+
+                    //ロード画像を消す
+                    deleteLoadingAnimation();
+                }
             }
         })
     }
