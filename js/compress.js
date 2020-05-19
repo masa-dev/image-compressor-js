@@ -36,6 +36,7 @@ fileInput.addEventListener('change', function (evt) {
 
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
+    const onlyJpeg = document.getElementById('only-jpeg').checked;
     let maxWidth, maxHeight;
     let totalCount = 0, count = 0;
     let errorFlag = false;
@@ -82,80 +83,83 @@ function compressImages(files) {
 
     //画像の圧縮
     for (let i = 0; i < files.length; i++) {
-        //非同期
-        const img = new Compressor(files[i], {
-            maxWidth: maxWidth,
-            maxHeight: maxHeight,
-            quality: imageQuality,
-            mineType: 'auto',
-            convertSize: Infinity,
-            success(result) {
-                compressedFiles.push(result)
-                $('#progress_' + i).removeClass('bg-info progress-bar-striped');
-                $('#progress_' + i).addClass('bg-success');
-                $('#progress_' + i).html('Finished')
+        //onlyJpeg が true のときは jpeg のみ通す
+        if (onlyJpeg == false || files[i].type == 'image/jpeg') {
+            //非同期
+            const img = new Compressor(files[i], {
+                maxWidth: maxWidth,
+                maxHeight: maxHeight,
+                quality: imageQuality,
+                mineType: 'auto',
+                convertSize: Infinity,
+                success(result) {
+                    compressedFiles.push(result)
+                    $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                    $('#progress_' + i).addClass('bg-success');
+                    $('#progress_' + i).html('Finished')
 
-                let size = calculateSize(this.result.size);
-                let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
+                    let size = calculateSize(this.result.size);
+                    let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
 
-                //fileInfo とデータを合わせて変更する
-                for (let j = 0; j < fileInfo.fileList.length; j++) {
-                    if (fileInfo.fileList[j].name == this.result.name) {
-                        fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
-                        fileInfo.fileList[j].status = 'success';
+                    //fileInfo とデータを合わせて変更する
+                    for (let j = 0; j < fileInfo.fileList.length; j++) {
+                        if (fileInfo.fileList[j].name == this.result.name) {
+                            fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
+                            fileInfo.fileList[j].status = 'success';
+                        }
+                    }
+
+                    //resultOfCompression とデータを合わせて変更する
+                    resultOfCompression.increaseValue(files[i].size, this.result.size);
+
+                    count++;
+                    if (count == totalCount) {
+                        //ボタンを有効にする
+                        $('#file-input').attr('disabled', false);
+                        $('#download-btn').attr('disabled', false);
+                        $('#execute-btn').attr('disabled', false);
+
+                        //ロード画像を消す
+                        deleteLoadingAnimation();
+                    }
+                },
+                error(err) {
+                    errorFlag = true;
+
+                    //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
+                    setTimeout(() => {
+                        $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                        $('#progress_' + i).addClass('bg-danger');
+                        $('#progress_' + i).html('Failure')
+                        fileInfo.fileList.status = 'file error';
+                    }, 100)
+
+                    if (errorFlag === false) {
+                        alert('エラーが発生しました\n' + err);
+
+                        //ボタンを有効にする
+                        $('#file-input').attr('disabled', false);
+                        $('#download-btn').attr('disabled', false);
+                        $('#execute-btn').attr('disabled', false);
+
+                        //ロード画像を消す
+                        deleteLoadingAnimation();
                     }
                 }
+            })
+        }
+        else {
+            //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
+            setTimeout(() => {
+                $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                $('#progress_' + i).addClass('bg-danger');
+                $('#progress_' + i).html('Refused')
+                fileInfo.fileList.status = 'Different file';
+            }, 100)
 
-                //resultOfCompression とデータを合わせて変更する
-                resultOfCompression.increaseValue(files[i].size, this.result.size);
-
-                count++;
-                if (count == totalCount) {
-                    //ボタンを有効にする
-                    $('#file-input').attr('disabled', false);
-                    $('#download-btn').attr('disabled', false);
-                    $('#execute-btn').attr('disabled', false);
-
-                    //ロード画像を消す
-                    deleteLoadingAnimation();
-                }
-            },
-            error(err) {
-                errorFlag = true;
-
-                //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
-                setTimeout(() => {
-                    $('#progress_' + i).removeClass('bg-info progress-bar-striped');
-                    $('#progress_' + i).addClass('bg-danger');
-                    $('#progress_' + i).html('Failure')
-                    fileInfo.fileList.status = 'file error';
-                }, 100)
-
-                if (errorFlag === false) {
-                    alert('エラーが発生しました\n' + err);
-
-                    //ボタンを有効にする
-                    $('#file-input').attr('disabled', false);
-                    $('#download-btn').attr('disabled', false);
-                    $('#execute-btn').attr('disabled', false);
-
-                    //ロード画像を消す
-                    deleteLoadingAnimation();
-                }
-            }
-        })
+            count++;
+        }
     }
-    /*
-    else {
-        //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
-        setTimeout(() => {
-            $('#progress_' + i).removeClass('bg-info progress-bar-striped');
-            $('#progress_' + i).addClass('bg-danger');
-            $('#progress_' + i).html('Failure')
-            fileInfo.fileList.status = 'Different file';
-        }, 100)
-    }
-    */
 }
 
 
