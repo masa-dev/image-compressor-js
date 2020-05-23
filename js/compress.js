@@ -45,7 +45,7 @@ function compressImages(files) {
     compressedFiles.splice(0, compressedFiles.length);
 
     //すべてJPEG形式に変換するかどうかの判別
-    if(convertJpeg) {
+    if (convertJpeg) {
         mimeType = 'image/jpeg';
     } else {
         mimeType = 'auto';
@@ -116,7 +116,7 @@ function compressImages(files) {
                         //拡張子を取り除く
                         let fileName = result.name.split('.').slice(0, -1).join('.');
                         for (let j = 0; j < fileInfo.fileList.length; j++) {
-                            if(fileInfo.fileList[j].name.indexOf(fileName) != -1) {
+                            if (fileInfo.fileList[j].name.indexOf(fileName) != -1) {
                                 fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
                                 fileInfo.fileList[j].status = 'success';
                             }
