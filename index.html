@@ -18,8 +18,7 @@
       <div class="drag-drop-inside">
         <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
         <p>または</p>
-        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*"
-            multiple></p>
+        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*" multiple></p>
       </div>
     </div>
     <div class="information-entry-area">
@@ -53,22 +52,22 @@
       </div>
       <div class="checkbox">
         <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">すべてJPEG形式に変換<sup
-          style="color: red;">（注意）</sup></label>
-        </div>
-        <div id="attention">
-          <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません。</p>
-        </div>
+            style="color: red;">（注意）</sup></label>
       </div>
-        <div class="button-area">
-          <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
-          <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
-        </div>
-        <div id="result" class="result-area">
-          <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
-            ({{ differencePercent }}%)</span> 圧縮しました。</p>
-          </div>
-          <div id="file-infomation" class="file-information-area">
-            <table>
+      <div id="attention">
+        <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません。</p>
+      </div>
+    </div>
+    <div class="button-area">
+      <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
+      <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
+    </div>
+    <div id="result" class="result-area">
+      <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
+          ({{ differencePercent }}%)</span> 圧縮しました。</p>
+    </div>
+    <div id="file-infomation" class="file-information-area">
+      <table>
         <tbody>
           <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
             <td class="file-name">{{ file.name }}</td>
