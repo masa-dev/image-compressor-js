@@ -18,54 +18,57 @@
       <div class="drag-drop-inside">
         <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
         <p>または</p>
-        <p class="drag-drop-buttons"><input id="file-input" type="file" value="ファイルを選択" name="image" accept="image/*"
+        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*"
             multiple></p>
       </div>
     </div>
-    <div class="form-group">
-      <label for="quality">品質</label>
-      <select class="form-control" id="quality">
-        <option>0</option>
-        <option>0.1</option>
-        <option>0.2</option>
-        <option>0.3</option>
-        <option>0.4</option>
-        <option>0.5</option>
-        <option>0.6</option>
-        <option>0.7</option>
-        <option selected>0.8</option>
-        <option>0.9</option>
-        <option>1</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="max-width">最大横幅</label>
-      <input class="form-control" id="max-width" type="number" min="0" placeholder="Infinity">
-    </div>
-    <div class="form-group">
-      <label for="max-height">最大縦幅</label>
-      <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" id="only-jpeg" value="three-digits">JPEG形式のみ処理を行う</label>
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">すべてJPEG形式に変換<sup
+    <div class="information-entry-area">
+
+      <div class="form-group">
+        <label for="quality">品質</label>
+        <select class="form-control" id="quality">
+          <option>0</option>
+          <option>0.1</option>
+          <option>0.2</option>
+          <option>0.3</option>
+          <option>0.4</option>
+          <option>0.5</option>
+          <option>0.6</option>
+          <option>0.7</option>
+          <option selected>0.8</option>
+          <option>0.9</option>
+          <option>1</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="max-width">最大横幅</label>
+        <input class="form-control" id="max-width" type="number" min="0" placeholder="Infinity">
+      </div>
+      <div class="form-group">
+        <label for="max-height">最大縦幅</label>
+        <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" id="only-jpeg" value="three-digits">JPEG形式のみ処理を行う</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">すべてJPEG形式に変換<sup
           style="color: red;">（注意）</sup></label>
-    </div>
-    <div id="attention">
-      <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません。</p>
-    </div>
-    <div>
-      <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
-      <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
-    </div>
-    <div id="result">
-      <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
-          ({{ differencePercent }}%)</span> 圧縮しました。</p>
-    </div>
-    <div id="file-info">
-      <table>
+        </div>
+        <div id="attention">
+          <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません。</p>
+        </div>
+      </div>
+        <div class="button-area">
+          <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
+          <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
+        </div>
+        <div id="result" class="result-area">
+          <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
+            ({{ differencePercent }}%)</span> 圧縮しました。</p>
+          </div>
+          <div id="file-infomation" class="file-information-area">
+            <table>
         <tbody>
           <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
             <td class="file-name">{{ file.name }}</td>

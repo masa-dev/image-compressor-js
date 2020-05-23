@@ -1,5 +1,5 @@
 let fileInfo = new Vue({
-    el: '#file-info',
+    el: '#file-infomation',
     data: {
         fileList: []
     },
