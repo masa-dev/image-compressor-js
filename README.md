@@ -21,7 +21,7 @@ Compressor.js というライブラリを用いてJpeg画像の品質（quality�
 ## 使ったライブラリなど
 
 - Compressor.js
-- jQery
+- jQuery
 - vue.js
 - bootstrap
 - JSZip, fileSaver.js
