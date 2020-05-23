@@ -37,10 +37,19 @@ fileInput.addEventListener('change', function (evt) {
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
     const onlyJpeg = document.getElementById('only-jpeg').checked;
+    const convertJpeg = document.getElementById('convert-all-to-jpeg').checked;
+    let mimeType;
     let maxWidth, maxHeight;
     let totalCount = 0, count = 0;
     let errorFlag = false;
     compressedFiles.splice(0, compressedFiles.length);
+
+    //すべてJPEG形式に変換するかどうかの判別
+    if(convertJpeg) {
+        mimeType = 'image/jpeg';
+    } else {
+        mimeType = 'auto';
+    }
 
     //maxWidth と maxHeight の選択していないときに Infinity にする
     if (document.getElementById('max-width').value == "") {
@@ -84,13 +93,13 @@ function compressImages(files) {
     //画像の圧縮
     for (let i = 0; i < files.length; i++) {
         //onlyJpeg が true のときは jpeg のみ通す
-        if (onlyJpeg == false || files[i].type == 'image/jpeg') {
+        if ((convertJpeg == true || onlyJpeg == false) || files[i].type == 'image/jpeg') {
             //非同期
             const img = new Compressor(files[i], {
                 maxWidth: maxWidth,
                 maxHeight: maxHeight,
                 quality: imageQuality,
-                mineType: 'auto',
+                mimeType: mimeType,
                 convertSize: Infinity,
                 success(result) {
                     compressedFiles.push(result)
@@ -102,10 +111,22 @@ function compressImages(files) {
                     let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
 
                     //fileInfo とデータを合わせて変更する
-                    for (let j = 0; j < fileInfo.fileList.length; j++) {
-                        if (fileInfo.fileList[j].name == this.result.name) {
-                            fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
-                            fileInfo.fileList[j].status = 'success';
+                    //拡張子が変わるため処理を分ける
+                    if (convertJpeg) {
+                        //拡張子を取り除く
+                        let fileName = result.name.split('.').slice(0, -1).join('.');
+                        for (let j = 0; j < fileInfo.fileList.length; j++) {
+                            if(fileInfo.fileList[j].name.indexOf(fileName) != -1) {
+                                fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
+                                fileInfo.fileList[j].status = 'success';
+                            }
+                        }
+                    } else {
+                        for (let j = 0; j < fileInfo.fileList.length; j++) {
+                            if (fileInfo.fileList[j].name == this.result.name) {
+                                fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
+                                fileInfo.fileList[j].status = 'success';
+                            }
                         }
                     }
 
@@ -158,6 +179,16 @@ function compressImages(files) {
             }, 100)
 
             count++;
+
+            if (count == totalCount) {
+                //ボタンを有効にする
+                $('#file-input').attr('disabled', false);
+                $('#download-btn').attr('disabled', false);
+                $('#execute-btn').attr('disabled', false);
+
+                //ロード画像を消す
+                deleteLoadingAnimation();
+            }
         }
     }
 }
