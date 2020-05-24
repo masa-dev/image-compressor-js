@@ -112,7 +112,7 @@ function compressImages(files) {
 
                     //fileInfo とデータを合わせて変更する
                     //拡張子が変わるため処理を分ける
-                    if (convertJpeg) {
+                    if (convertJpeg && files[i].type != 'image/jpeg') {
                         //拡張子を取り除く
                         let fileName = result.name.split('.').slice(0, -1).join('.');
                         for (let j = 0; j < fileInfo.fileList.length; j++) {
