@@ -9,14 +9,14 @@
 /* スクロールバーのスタイル変更 */
 
 #file-infomation::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 #file-infomation::-webkit-scrollbar-track {
     background: #fff;
     border: none;
     border-radius: 10px;
-    box-shadow: inset 0 0 2px #777;
+    /*box-shadow: inset 0 0 2px #777;*/
 }
 
 #file-infomation::-webkit-scrollbar-thumb {
