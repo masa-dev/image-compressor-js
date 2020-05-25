@@ -14,7 +14,7 @@
 
 <body>
   <div class="content">
-    <h1>Jpeg圧縮</h1>
+    <h1>JPEG圧縮</h1>
     <div id="drag-drop-area">
       <div class="drag-drop-inside">
         <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
@@ -23,7 +23,6 @@
       </div>
     </div>
     <div class="information-entry-area">
-
       <div class="form-group">
         <label for="quality">品質</label>
         <select class="form-control" id="quality">
@@ -56,7 +55,8 @@
             style="color: red;">（注意）</sup></label>
       </div>
       <div id="attention">
-        <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません。</p>
+        <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません</p>
+        <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
       </div>
     </div>
     <div class="button-area">
@@ -67,11 +67,11 @@
       <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
           ({{ differencePercent }}%)</span> 圧縮しました。</p>
     </div>
-    <div id="file-infomation" class="file-information-area">
+    <div id="file-information" class="file-information-area">
       <table>
         <tbody>
           <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
-            <td class="file-name">{{ file.name }}</td>
+            <td class="file-name" v-bind:title="file.name">{{ file.name }}</td>
             <td class="file-size">{{ file.size }}</td>
             <td class="compressed-size">{{ file.compressedSize }}</td>
             <td class="progress-bar-area">
