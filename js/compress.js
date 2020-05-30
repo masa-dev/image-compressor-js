@@ -145,17 +145,17 @@ function compressImages(files) {
                     }
                 },
                 error(err) {
-                    errorFlag = true;
-
                     //対応外のプログレスバー更新（Falure）が出来ないため時間をずらす
                     setTimeout(() => {
                         $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                         $('#progress_' + i).addClass('bg-danger');
                         $('#progress_' + i).html('Failure')
-                        fileInfo.fileList.status = 'file error';
+                        fileInfo[i].fileList.status = 'file error';
                     }, 100)
 
                     if (errorFlag === false) {
+                        errorFlag = true;
+
                         alert('エラーが発生しました\n' + err);
 
                         //ボタンを有効にする
@@ -175,7 +175,7 @@ function compressImages(files) {
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                 $('#progress_' + i).addClass('bg-danger');
                 $('#progress_' + i).html('Refused')
-                fileInfo.fileList.status = 'Different file';
+                fileInfo[i].fileList.status = 'Different file';
             }, 100)
 
             count++;
@@ -191,6 +191,22 @@ function compressImages(files) {
             }
         }
     }
+
+    /*setTimeout(function () {
+        for(let i = 0; i < files.length; i++) {
+            const status = fileInfo[i].fileList.status;
+            if(status == 'success' || status == 'processing') {
+                //処理なし
+            } else {
+                $('#file-input').attr('disabled', false);
+                $('#download-btn').attr('disabled', false);
+                $('#execute-btn').attr('disabled', false);
+
+                //ロード画像を消す
+                deleteLoadingAnimation();
+            }
+        }
+    }, 1000);*/
 }
 
 
