@@ -97,3 +97,10 @@ button {
         width: 45px;
     }
 }
+
+@media (prefers-color-sheme: dark) {
+    body {
+        background-color: rgb(24, 26, 28);
+        color: rgb(218, 215, 210)
+    }
+}
