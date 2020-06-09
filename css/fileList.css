@@ -77,3 +77,35 @@ td.progress-bar-area {
         font-size: smaller;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    table {
+        border-color: rgb(60, 60, 60);
+    }
+    td {
+        border-top-color: rgb(60, 60, 60);
+    }
+    td.file-size {
+        color: rgb(168, 208, 205);
+    }
+    td.compressed-size {
+        color: rgb(139, 217, 139);
+    }
+    /* スクロールバーのスタイル変更 */
+    #file-information::-webkit-scrollbar-track {
+        background-color: rgb(24, 26, 28);
+    }
+    #file-information::-webkit-scrollbar-thumb {
+        background-color: rgb(39, 41, 43);
+    }
+    /* スクロールバーのスタイル変更 */
+    .bg-info {
+        background-color: #1593a6 !important;
+    }
+    .bg-success {
+        background-color: #228d3a !important;
+    }
+    .bg-danger {
+        background-color: #931925 !important;
+    }
+}

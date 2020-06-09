@@ -103,4 +103,36 @@ button {
         background-color: rgb(24, 26, 28);
         color: rgb(218, 215, 210)
     }
+    input {
+        color: white;
+    }
+    #drag-drop-area {
+        background-color: rgb(24, 26, 28);
+        border-color: rgb(70, 70, 70);
+    }
+    #drag-drop-area p {
+        color: rgb(186, 181, 171);
+    }
+    .result-text {
+        background-color: rgb(15, 71, 27);
+        border-color: rgb(50, 70, 54);
+    }
+    .result-number {
+        color: rgb(139, 217, 139);
+    }
+    .form-control {
+        color: rgb(202, 198, 190);
+        background-color: rgb(24, 26, 28);
+        border-color: rgb(60, 60, 60);
+    }
+    .form-control:focus {
+        color: rgb(202, 198, 190);
+        background-color: rgb(24, 26, 28);
+    }
+    .btn-info {
+        background-color: #1593a6;
+    }
+    .btn-primary {
+        background-color: #0063cc;
+    }
 }
