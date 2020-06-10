@@ -31,4 +31,4 @@ Compressor.js というライブラリを用いてJpeg画像の品質（quality�
 
 ## 公開しているサイト
 
-https://masa-dev.github.io/imageCompressor-js/
+https://masa-dev.github.io/image-compressor-js/
