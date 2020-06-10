@@ -1,4 +1,4 @@
-# imageCompressor-js
+# image-compressor-js
 
 - [概要](#概要)
 - [使い方](#使い方)
