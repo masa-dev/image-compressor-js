@@ -51,7 +51,7 @@ window.onload = function () {
     loadCheck = true;
     setTimeout(() => {
         loadCheck = false;
-    }, 100);
+    }, 500);
 }
 
 function compressImages(files) {
