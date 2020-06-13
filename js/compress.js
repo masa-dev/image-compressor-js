@@ -2,6 +2,7 @@ let fileArea = document.getElementById('drag-drop-area');
 let fileInput = document.getElementById('file-input');
 let droppedFiles = [];  //画像ファイルを格納する変数
 let compressedFiles = [];
+let loadCheck = false;
 
 fileArea.addEventListener('dragover', function (evt) {
     evt.preventDefault();
@@ -30,9 +31,28 @@ fileInput.addEventListener('change', function (evt) {
 
     fileInfo.dropFile(evt.target.files);
 
-    compressImages(droppedFiles);
+    if (loadCheck == false) {
+        compressImages(droppedFiles);
+    }
+    else {
+        for (let i = 0; i < fileInfo.fileList.length; i++) {
+            setTimeout(() => {
+                $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                $('#progress_' + i).addClass('bg-danger');
+                $('#progress_' + i).html('Failure')
+                fileInfo[i].fileList.status = 'file error';
+            }, 100)
+        }
+    }
 }, false)
 
+//ロード時のchangeイベントの発生を防止
+window.onload = function () {
+    loadCheck = true;
+    setTimeout(() => {
+        loadCheck = false;
+    }, 100);
+}
 
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
@@ -107,8 +127,8 @@ function compressImages(files) {
                     $('#progress_' + i).addClass('bg-success');
                     $('#progress_' + i).html('Finished')
 
-                    let size = calculateSize(this.result.size);
-                    let difference = Math.floor(((files[i].size - this.result.size) / files[i].size) * 100 * 10) / 10;
+                    let size = calculateSize(result.size);
+                    let difference = Math.floor(((files[i].size - result.size) / files[i].size) * 100 * 10) / 10;
 
                     //fileInfo とデータを合わせて変更する
                     //拡張子が変わるため処理を分ける
@@ -123,7 +143,7 @@ function compressImages(files) {
                         }
                     } else {
                         for (let j = 0; j < fileInfo.fileList.length; j++) {
-                            if (fileInfo.fileList[j].name == this.result.name) {
+                            if (fileInfo.fileList[j].name == result.name) {
                                 fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
                                 fileInfo.fileList[j].status = 'success';
                             }
@@ -131,7 +151,7 @@ function compressImages(files) {
                     }
 
                     //resultOfCompression とデータを合わせて変更する
-                    resultOfCompression.increaseValue(files[i].size, this.result.size);
+                    resultOfCompression.increaseValue(files[i].size, result.size);
 
                     count++;
                     if (count == totalCount) {
