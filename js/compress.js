@@ -7,16 +7,19 @@ let loadCheck = false;
 fileArea.addEventListener('dragover', function (evt) {
     evt.preventDefault();
     fileArea.classList.add('dragover');
+    fileArea.classList.add('active');
 });
 
 fileArea.addEventListener('dragleave', function (evt) {
     evt.preventDefault();
     fileArea.classList.remove('dragover');
+    fileArea.classList.remove('active');
 });
 
 fileArea.addEventListener('drop', function (evt) {
     evt.preventDefault();
     fileArea.classList.remove('dragenter');
+    fileArea.classList.remove('active');
     //このdroppedFilesに画像データが入る
     droppedFiles = evt.dataTransfer.files;
     fileInput.files = droppedFiles;
@@ -64,6 +67,7 @@ function compressImages(files) {
     let errorFlag = false;
     compressedFiles.splice(0, compressedFiles.length);
 
+
     //すべてJPEG形式に変換するかどうかの判別
     if (convertJpeg) {
         mimeType = 'image/jpeg';
@@ -88,12 +92,9 @@ function compressImages(files) {
 
     if (files.length != 0) {
         //ボタンを無効にする
-        $('#file-input').attr('disabled', true);
-        $('#download-btn').attr('disabled', true);
-        $('#execute-btn').attr('disabled', true);
-
+        disabledOfInputAndBtn(true);
         //ロード画像を表示する
-        displayLoadingAnimation();
+        displayLoadingAnimation('fastparrot');
     }
 
     //resultOfCompression を見えるようにする
@@ -104,6 +105,8 @@ function compressImages(files) {
     else if (resultOfCompression.seen === false) {
         resultOfCompression.seen = true;
     }
+    //個数の表示のリセット
+    resultOfCompression.resetQuantity(files.length);
 
     //合計の処理回数
     for (let i = 0; i < files.length; i++) {
@@ -152,14 +155,12 @@ function compressImages(files) {
 
                     //resultOfCompression とデータを合わせて変更する
                     resultOfCompression.increaseValue(files[i].size, result.size);
+                    resultOfCompression.updateQuantity();
 
                     count++;
                     if (count == totalCount) {
                         //ボタンを有効にする
-                        $('#file-input').attr('disabled', false);
-                        $('#download-btn').attr('disabled', false);
-                        $('#execute-btn').attr('disabled', false);
-
+                        disabledOfInputAndBtn(false);
                         //ロード画像を消す
                         deleteLoadingAnimation();
                     }
@@ -179,10 +180,7 @@ function compressImages(files) {
                         alert('エラーが発生しました\n' + err);
 
                         //ボタンを有効にする
-                        $('#file-input').attr('disabled', false);
-                        $('#download-btn').attr('disabled', false);
-                        $('#execute-btn').attr('disabled', false);
-
+                        disabledOfInputAndBtn(false);
                         //ロード画像を消す
                         deleteLoadingAnimation();
                     }
@@ -198,14 +196,13 @@ function compressImages(files) {
                 fileInfo[i].fileList.status = 'Different file';
             }, 100)
 
-            count++;
+            //表示する個数の更新
+            resultOfCompression.updateQuantity();
 
+            count++;
             if (count == totalCount) {
                 //ボタンを有効にする
-                $('#file-input').attr('disabled', false);
-                $('#download-btn').attr('disabled', false);
-                $('#execute-btn').attr('disabled', false);
-
+                disabledOfInputAndBtn(false);
                 //ロード画像を消す
                 deleteLoadingAnimation();
             }
@@ -248,8 +245,20 @@ function calculateSize(bites) {
     return bites;
 }
 
-function displayLoadingAnimation() {
-    $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif">');
+function disabledOfInputAndBtn(bool) {
+    $('#file-input').attr('disabled', bool);
+    $('#download-btn').attr('disabled', bool);
+    $('#execute-btn').attr('disabled', bool);
+}
+
+function displayLoadingAnimation(type, comments = '') {
+    if(type == 'normal') {
+        $('#load-image').html('<img id="loading" src="images/gif/loadingGif/loading-orange.gif"><span>' + comments + '</span>');
+    } else if(type == 'parrot') {
+        $('#load-image').html('<img id="loading" src="images/gif/party parrot/parrot.gif"><span>' + comments + '</span>');
+    } else if(type == 'fastparrot') {
+        $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif"><span>' + comments + '</span>');
+    }
 }
 
 function deleteLoadingAnimation() {

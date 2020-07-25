@@ -38,9 +38,20 @@ let resultOfCompression = new Vue({
             difference: 0,
             renamed: '0KB'
         },
-        differencePercent: 0
+        differencePercent: 0,
+        quantity: {
+            total: 0,
+            finished: 0
+        }
     },
     methods: {
+        resetQuantity: function (totalQuantity) {
+            this.quantity.total = totalQuantity;
+            this.quantity.finished = 0;
+        },
+        updateQuantity: function () {
+            this.quantity.finished++;
+        },
         increaseValue: function (originSize, compressedSize) {
             this.totalSize.origin += originSize;
             this.totalSize.compressed += compressedSize;

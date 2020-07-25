@@ -65,7 +65,7 @@
     </div>
     <div id="result" class="result-area">
       <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
-          ({{ differencePercent }}%)</span> 圧縮しました。</p>
+          ({{ differencePercent }}%)</span> 圧縮しました<sup>（{{ quantity.finished }} / {{ quantity.total }}）</sup></p>
     </div>
     <div id="file-information" class="file-information-area">
       <table>

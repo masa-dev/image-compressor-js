@@ -10,6 +10,11 @@ downloadBtn.addEventListener('click', function () {
         }
     }
 
+    //再実行ボタンと保存ボタンを無効にする
+    disabledOfInputAndBtn(true);
+    //ロード表示
+    displayLoadingAnimation('parrot', 'saving...');
+
     //zipでダウンロード
     let zip = new JSZip();
 
@@ -20,6 +25,11 @@ downloadBtn.addEventListener('click', function () {
     zip.generateAsync({ type: 'blob' }).then(function (content) {
         //FileSaver.js
         saveAs(content, 'compressed.zip');
+
+        //再実行ボタンと保存ボタンを有効にする
+        disabledOfInputAndBtn(false);
+        //ロード削除
+        deleteLoadingAnimation()
     });
 
 }, false)
@@ -28,4 +38,4 @@ executeBtn.addEventListener('click', function () {
     fileInfo.dropFile(droppedFiles);
 
     compressImages(droppedFiles);
-})
+});

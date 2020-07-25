@@ -18,6 +18,11 @@ h1 {
     border-radius: 15px;
     min-height: 200px;
     text-align: center;
+    transition: all 0.3s;
+}
+
+#drag-drop-area.active {
+    border-color: rgb(128, 223, 104);
 }
 
 #drag-drop-area p {
@@ -56,6 +61,10 @@ p.attention {
     background-color: rgba(225, 255, 225, 0.5);
 }
 
+.result-text>sup {
+    color: rgb(31, 128, 83);
+}
+
 .result-number {
     color: rgb(56, 153, 56);
 }
@@ -68,7 +77,7 @@ button {
     width: 100px;
 }
 
-#loading {
+#load-image {
     width: 60px;
     position: fixed;
     top: 0px;
@@ -110,6 +119,9 @@ button {
         background-color: rgb(24, 26, 28);
         border-color: rgb(70, 70, 70);
     }
+    #drag-drop-area.active {
+        border-color: rgb(80, 165, 56);
+    }    
     #drag-drop-area p {
         color: rgb(186, 181, 171);
     }
@@ -117,6 +129,9 @@ button {
         background-color: rgb(15, 71, 27);
         border-color: rgb(50, 70, 54);
     }
+    .result-text>sup {
+        color: rgb(142, 223, 185);
+    }    
     .result-number {
         color: rgb(139, 217, 139);
     }
