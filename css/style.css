@@ -77,7 +77,13 @@ button {
     width: 100px;
 }
 
-#load-image {
+#comments {
+    position: fixed;
+    top: 0px;
+    left: 65px;
+}
+
+#loading {
     width: 60px;
     position: fixed;
     top: 0px;

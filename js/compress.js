@@ -3,30 +3,37 @@ let fileInput = document.getElementById('file-input');
 let droppedFiles = [];  //画像ファイルを格納する変数
 let compressedFiles = [];
 let loadCheck = false;
+let processing = false; //処理中であるかどうか
 
 fileArea.addEventListener('dragover', function (evt) {
+    if (!processing) {
     evt.preventDefault();
-    fileArea.classList.add('dragover');
-    fileArea.classList.add('active');
+        fileArea.classList.add('dragover');
+        fileArea.classList.add('active');
+    }
 });
 
 fileArea.addEventListener('dragleave', function (evt) {
+    if (!processing) {
     evt.preventDefault();
-    fileArea.classList.remove('dragover');
-    fileArea.classList.remove('active');
+        fileArea.classList.remove('dragover');
+        fileArea.classList.remove('active');
+    }
 });
 
 fileArea.addEventListener('drop', function (evt) {
-    evt.preventDefault();
-    fileArea.classList.remove('dragenter');
-    fileArea.classList.remove('active');
-    //このdroppedFilesに画像データが入る
-    droppedFiles = evt.dataTransfer.files;
-    fileInput.files = droppedFiles;
+    if (!processing) {
+        evt.preventDefault();
+        fileArea.classList.remove('dragenter');
+        fileArea.classList.remove('active');
+        //このdroppedFilesに画像データが入る
+        droppedFiles = evt.dataTransfer.files;
+        fileInput.files = droppedFiles;
 
-    fileInfo.dropFile(droppedFiles);
+        fileInfo.dropFile(droppedFiles);
 
-    compressImages(droppedFiles);
+        compressImages(droppedFiles);
+    }
 });
 
 fileInput.addEventListener('change', function (evt) {
@@ -47,7 +54,7 @@ fileInput.addEventListener('change', function (evt) {
             }, 100)
         }
     }
-}, false)
+}, false);
 
 //ロード時のchangeイベントの発生を防止
 window.onload = function () {
@@ -55,7 +62,7 @@ window.onload = function () {
     setTimeout(() => {
         loadCheck = false;
     }, 500);
-}
+};
 
 function compressImages(files) {
     const imageQuality = parseFloat(document.getElementById('quality').value);
@@ -89,6 +96,9 @@ function compressImages(files) {
     }
 
     //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
+
+    //処理の開始
+    processing = true;
 
     if (files.length != 0) {
         //ボタンを無効にする
@@ -159,6 +169,8 @@ function compressImages(files) {
 
                     count++;
                     if (count == totalCount) {
+                        //処理の終了
+                        processing = false;
                         //ボタンを有効にする
                         disabledOfInputAndBtn(false);
                         //ロード画像を消す
@@ -179,6 +191,8 @@ function compressImages(files) {
 
                         alert('エラーが発生しました\n' + err);
 
+                        //処理の終了
+                        processing = false;
                         //ボタンを有効にする
                         disabledOfInputAndBtn(false);
                         //ロード画像を消す
@@ -201,6 +215,8 @@ function compressImages(files) {
 
             count++;
             if (count == totalCount) {
+                //処理の終了
+                processing = false;
                 //ボタンを有効にする
                 disabledOfInputAndBtn(false);
                 //ロード画像を消す
@@ -253,11 +269,11 @@ function disabledOfInputAndBtn(bool) {
 
 function displayLoadingAnimation(type, comments = '') {
     if (type == 'normal') {
-        $('#load-image').html('<img id="loading" src="images/gif/loadingGif/loading-orange.gif"><span>' + comments + '</span>');
+        $('#load-image').html('<img id="loading" src="images/gif/loadingGif/loading-orange.gif"><span id="comments">' + comments + '</span>');
     } else if (type == 'parrot') {
-        $('#load-image').html('<img id="loading" src="images/gif/party parrot/parrot.gif"><span>' + comments + '</span>');
+        $('#load-image').html('<img id="loading" src="images/gif/party parrot/parrot.gif"><span id="comments">' + comments + '</span>');
     } else if (type == 'fastparrot') {
-        $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif"><span>' + comments + '</span>');
+        $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif"><span id="comments">' + comments + '</span>');
     }
 }
 
