@@ -252,11 +252,11 @@ function disabledOfInputAndBtn(bool) {
 }
 
 function displayLoadingAnimation(type, comments = '') {
-    if(type == 'normal') {
+    if (type == 'normal') {
         $('#load-image').html('<img id="loading" src="images/gif/loadingGif/loading-orange.gif"><span>' + comments + '</span>');
-    } else if(type == 'parrot') {
+    } else if (type == 'parrot') {
         $('#load-image').html('<img id="loading" src="images/gif/party parrot/parrot.gif"><span>' + comments + '</span>');
-    } else if(type == 'fastparrot') {
+    } else if (type == 'fastparrot') {
         $('#load-image').html('<img id="loading" src="images/gif/party parrot/fastparrot.gif"><span>' + comments + '</span>');
     }
 }

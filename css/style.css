@@ -121,7 +121,7 @@ button {
     }
     #drag-drop-area.active {
         border-color: rgb(80, 165, 56);
-    }    
+    }
     #drag-drop-area p {
         color: rgb(186, 181, 171);
     }
@@ -131,7 +131,7 @@ button {
     }
     .result-text>sup {
         color: rgb(142, 223, 185);
-    }    
+    }
     .result-number {
         color: rgb(139, 217, 139);
     }
