@@ -1,3 +1,7 @@
+body {
+    background-color: white;
+}
+
 h1 {
     font-size: 30px;
     text-align: center;
@@ -42,9 +46,11 @@ h1 {
     margin: auto;
 }
 
+/*
 div#attention {
     margin-bottom: 20px;
 }
+*/
 
 p.attention {
     color: #999;
@@ -116,7 +122,7 @@ button {
 @media (prefers-color-scheme: dark) {
     body {
         background-color: rgb(24, 26, 28);
-        color: rgb(218, 215, 210)
+        color: rgb(218, 215, 210);
     }
     input {
         color: white;

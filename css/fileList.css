@@ -27,7 +27,7 @@
 
 /* スクロールバーのスタイル変更 */
 
-table {
+table.file-information-table {
     width: 100%;
     border: solid 1px rgb(194, 194, 194);
     border-collapse: collapse;
@@ -37,7 +37,7 @@ table {
     border-radius: 5px;
 }
 
-td {
+table.file-information-table td {
     padding: 5px 10px;
     border-top: solid 1px rgb(194, 194, 194);
 }
@@ -70,7 +70,7 @@ td.progress-bar-area {
 }
 
 @media screen and (max-width: 600px) {
-    td {
+    table.file-information-table td {
         padding: 5px;
     }
     td.file-name {
@@ -79,10 +79,10 @@ td.progress-bar-area {
 }
 
 @media (prefers-color-scheme: dark) {
-    table {
+    table.file-information-table {
         border-color: rgb(60, 60, 60);
     }
-    td {
+    table.file-information-table td {
         border-top-color: rgb(60, 60, 60);
     }
     td.file-size {

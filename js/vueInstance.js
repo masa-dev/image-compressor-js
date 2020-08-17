@@ -1,6 +1,7 @@
-let fileInfo = new Vue({
+const fileInfo = new Vue({
     el: '#file-information',
     data: {
+        seen: true,
         fileList: []
     },
     methods: {
@@ -18,17 +19,44 @@ let fileInfo = new Vue({
             this.addFile(files);
             this.resetProgressBar(files.length);
         },
-        resetProgressBar(length) {
+        resetProgressBar: function (length) {
             for (let i = 0; i < length; i++) {
                 $('#progress_' + i).removeClass('bg-danger bg-success');
                 $('#progress_' + i).addClass('bg-info progress-bar-striped');
                 $('#progress_' + i).html('Processing');
             }
         }
+    },
+    watch: {
+        seen: function () {
+            if (this.seen === true) {
+                // 時間をおいて更新する（0.3s）
+                setTimeout(function () {
+                    for (let i = 0; i < fileInfo.fileList.length; i++) {
+                        if (fileInfo.fileList[i].status == 'success') {
+                            $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                            $('#progress_' + i).addClass('bg-success');
+                            $('#progress_' + i).html('Finished');
+                        }
+                        else if (fileInfo.fileList[i].status == 'file error') {
+                            $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                            $('#progress_' + i).addClass('bg-danger');
+                            $('#progress_' + i).html('Failure');
+                        }
+                        else if (fileInfo.fileList[i].status == 'Different file') {
+                            $('#progress_' + i).removeClass('bg-info progress-bar-striped');
+                            $('#progress_' + i).addClass('bg-danger');
+                            $('#progress_' + i).html('Refused');
+                        }
+                    }
+                }, 300);
+            }
+        }
     }
+
 })
 
-let resultOfCompression = new Vue({
+const resultOfCompression = new Vue({
     el: '#result',
     data: {
         seen: false,

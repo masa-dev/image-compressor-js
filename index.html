@@ -8,8 +8,11 @@
   <link rel="icon" href="images/icon/Compress_Jpeg.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fileList.css">
+  <link rel="stylesheet" href="css/modalWindow.css">
 </head>
 
 <body>
@@ -48,15 +51,62 @@
         <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
       </div>
       <div class="checkbox">
-        <label><input type="checkbox" id="only-jpeg" value="three-digits">JPEG形式のみ処理を行う</label>
+        <label><input type="checkbox" id="only-jpeg" value="three-digits">&nbsp;&nbsp;JPEG形式のみ処理を行う</label>
       </div>
       <div class="checkbox">
-        <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">すべてJPEG形式に変換<sup
+        <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">&nbsp;&nbsp;すべてJPEG形式に変換<sup
             style="color: red;">（注意）</sup></label>
       </div>
       <div id="attention">
         <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません</p>
         <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
+      </div>
+    </div>
+    <div id="config">
+      <!-- Button trigger modal -->
+      <button id="modal-link-btn" type="button" class="btn btn-link btn-sm" data-toggle="modal"
+        data-target="#exampleModalCenter" onclick="config.openModal()">
+        詳細設定
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">詳細設定</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="config-list">
+                <tr>
+                  <td class="config-text">
+                    ファイル選択時に処理する
+                  </td>
+                  <td class="config-switch">
+                    <input type="checkbox" id="processing-file-input" checked data-toggle="toggle" data-size="sm">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="config-text">
+                    ファイルリストを非表示にする
+                  </td>
+                  <td class="config-switch">
+                    <input type="checkbox" id="hide-file-list" data-toggle="toggle" data-size="sm">
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+            <div class="modal-footer">
+              <button id="close-modal-btn" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button id="apply-config-btn" type="button" class="btn btn-primary"
+                onclick="config.applyConfig()">適用</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="button-area">
@@ -68,7 +118,7 @@
           ({{ differencePercent }}%)</span> 圧縮しました<sup>（{{ quantity.finished }} / {{ quantity.total }}）</sup></p>
     </div>
     <div id="file-information" class="file-information-area">
-      <table>
+      <table class="file-information-table" v-if="seen">
         <tbody>
           <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
             <td class="file-name" v-bind:title="file.name">{{ file.name }}</td>
@@ -98,11 +148,13 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/fengyuanchen/compressorjs/dist/compressor.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="js/config.js"></script>
   <script src="js/vueInstance.js"></script>
   <script src="js/compress.js"></script>
   <script src="js/button.js"></script>

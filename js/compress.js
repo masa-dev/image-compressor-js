@@ -7,7 +7,7 @@ let processing = false; //処理中であるかどうか
 
 fileArea.addEventListener('dragover', function (evt) {
     if (!processing) {
-    evt.preventDefault();
+        evt.preventDefault();
         fileArea.classList.add('dragover');
         fileArea.classList.add('active');
     }
@@ -15,7 +15,7 @@ fileArea.addEventListener('dragover', function (evt) {
 
 fileArea.addEventListener('dragleave', function (evt) {
     if (!processing) {
-    evt.preventDefault();
+        evt.preventDefault();
         fileArea.classList.remove('dragover');
         fileArea.classList.remove('active');
     }
@@ -30,26 +30,30 @@ fileArea.addEventListener('drop', function (evt) {
         droppedFiles = evt.dataTransfer.files;
         fileInput.files = droppedFiles;
 
-        fileInfo.dropFile(droppedFiles);
-
-        compressImages(droppedFiles);
+        //ファイルインプット時に処理する
+        if (config.processingOnFileInput) {
+            fileInfo.dropFile(droppedFiles);
+            compressImages(droppedFiles);
+        }
     }
 });
 
 fileInput.addEventListener('change', function (evt) {
     droppedFiles = evt.target.files;
 
-    fileInfo.dropFile(evt.target.files);
-
     if (loadCheck == false) {
-        compressImages(droppedFiles);
+        //ファイルインプット時に処理する
+        if (config.processingOnFileInput) {
+            fileInfo.dropFile(evt.target.files);
+            compressImages(droppedFiles);
+        }
     }
     else {
         for (let i = 0; i < fileInfo.fileList.length; i++) {
             setTimeout(() => {
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                 $('#progress_' + i).addClass('bg-danger');
-                $('#progress_' + i).html('Failure')
+                $('#progress_' + i).html('Failure');
                 fileInfo[i].fileList.status = 'file error';
             }, 100)
         }
@@ -138,7 +142,7 @@ function compressImages(files) {
                     compressedFiles.push(result)
                     $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                     $('#progress_' + i).addClass('bg-success');
-                    $('#progress_' + i).html('Finished')
+                    $('#progress_' + i).html('Finished');
 
                     let size = calculateSize(result.size);
                     let difference = Math.floor(((files[i].size - result.size) / files[i].size) * 100 * 10) / 10;
@@ -182,7 +186,7 @@ function compressImages(files) {
                     setTimeout(() => {
                         $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                         $('#progress_' + i).addClass('bg-danger');
-                        $('#progress_' + i).html('Failure')
+                        $('#progress_' + i).html('Failure');
                         fileInfo[i].fileList.status = 'file error';
                     }, 100)
 
@@ -206,7 +210,7 @@ function compressImages(files) {
             setTimeout(() => {
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                 $('#progress_' + i).addClass('bg-danger');
-                $('#progress_' + i).html('Refused')
+                $('#progress_' + i).html('Refused');
                 fileInfo[i].fileList.status = 'Different file';
             }, 100)
 
