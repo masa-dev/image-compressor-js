@@ -34,7 +34,7 @@
 
 @media (prefers-color-scheme: dark) {
     .modal-content {
-        background-color: rgb(24, 26, 28);
+        background-color: rgb(32, 36, 39);
     }
     .modal-header {
         border-color: gray;
