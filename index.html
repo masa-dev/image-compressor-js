@@ -4,116 +4,138 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>PDF to jpeg</title>
+  <title>image compressor</title>
+  <link rel="icon" href="images/icon/Compress_Jpeg.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fileList.css">
   <link rel="stylesheet" href="css/modalWindow.css">
 </head>
 
 <body>
-  <main>
-    <h1>PDF to jpeg</h1>
+  <div class="content">
+    <h1>JPEG圧縮</h1>
     <div id="drag-drop-area">
       <div class="drag-drop-inside">
-        <p class="drag-drop-info">ここにPDFファイルをドロップ</p>
+        <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
         <p>または</p>
-        <p class="drag-drop-buttons"><input id="file-input" type="file" name="pdf" accept="application/pdf"></p>
+        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*" multiple></p>
       </div>
     </div>
-    <div class="information-enrty-area">
+    <div class="information-entry-area">
       <div class="form-group">
-        <label for="image-file-name">画像ファイル名</label>
-        <input class="form-control" id="image-file-name" type="text" placeholder="No image file name">
+        <label for="quality">品質</label>
+        <select class="form-control" id="quality">
+          <option>0</option>
+          <option>0.1</option>
+          <option>0.2</option>
+          <option>0.3</option>
+          <option>0.4</option>
+          <option>0.5</option>
+          <option>0.6</option>
+          <option>0.7</option>
+          <option selected>0.8</option>
+          <option>0.9</option>
+          <option>1</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="folder-name">フォルダ名</label>
-        <input class="form-control" id="folder-name" type="text" placeholder="No folder name">
+        <label for="max-width">最大横幅</label>
+        <input class="form-control" id="max-width" type="number" min="0" placeholder="Infinity">
       </div>
-      <div class="check-area">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="three-digit-number" checked>
-          <label class="form-check-label" for="three-digit-number">番号を三桁の数字にする</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="no-underscore" checked>
-          <label class="form-check-label" for="no-underscore">アンダースコアを間に入れない</label>
-        </div>
+      <div class="form-group">
+        <label for="max-height">最大縦幅</label>
+        <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" id="only-jpeg" value="three-digits">&nbsp;&nbsp;JPEG形式のみ処理を行う</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">&nbsp;&nbsp;すべてJPEG形式に変換<sup
+            style="color: red;">（注意）</sup></label>
       </div>
       <div id="attention">
         <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません</p>
+        <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
       </div>
-      <div id="config">
-        <!-- Button trigger modal -->
-        <button id="modal-link-btn" type="button" class="btn btn-link btn-sm" data-toggle="modal"
-          data-target="#configModalCenter" onclick="config.applyConfigOfModal()">
-          詳細設定
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="configModalCenter" tabindex="-1" role="dialog"
-          aria-labelledby="configModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="configModalCenterTitle">詳細設定</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="image-file-type">画像ファイルの種類</label>
-                  <select class="form-control" id="image-file-type">
-                    <option selected>image/jpeg</option>
-                    <option>image/png</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="file-quality">品質（image/jpeg のみ適用）</label>
-                  <select class="form-control" id="file-quality">
-                    <option>0</option>
-                    <option>0.1</option>
-                    <option>0.2</option>
-                    <option>0.3</option>
-                    <option>0.4</option>
-                    <option>0.5</option>
-                    <option>0.6</option>
-                    <option>0.7</option>
-                    <option selected>0.8</option>
-                    <option>0.9</option>
-                    <option>1</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="image-scale">スケール</label>
-                  <input class="form-control" id="image-scale" type="number" min="0" value="2.0" step="0.1">
-                </div>
-                <!--
-                  <div class="form-group">
-                    <label for="max-width">最大横幅</label>
-                    <input class="form-control" id="max-width" type="number" min="0" placeholder="Default">
-                  </div>
-                  <div class="form-group">
-                    <label for="max-height">最大縦幅</label>
-                    <input class="form-control" id="max-height" type="number" min="0" placeholder="Default">
-                  </div>
-                -->
-                <div class="modal-footer">
-                  <button id="close-modal-btn" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                  <button id="apply-config-btn" type="button" class="btn btn-primary"
-                    onclick="config.applyConfigOfModal()">適用</button>
-                </div>
-              </div>
+    </div>
+    <div id="config">
+      <!-- Button trigger modal -->
+      <button id="modal-link-btn" type="button" class="btn btn-link btn-sm" data-toggle="modal"
+        data-target="#exampleModalCenter" onclick="config.openModal()">
+        詳細設定
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">詳細設定</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="config-list">
+                <tr>
+                  <td class="config-text">
+                    ファイル選択時に処理する
+                  </td>
+                  <td class="config-switch">
+                    <input type="checkbox" id="processing-file-input" checked data-toggle="toggle" data-size="sm">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="config-text">
+                    ファイルリストを非表示にする
+                  </td>
+                  <td class="config-switch">
+                    <input type="checkbox" id="hide-file-list" data-toggle="toggle" data-size="sm">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button id="close-modal-btn" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button id="apply-config-btn" type="button" class="btn btn-primary"
+                onclick="config.applyConfig()">適用</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="execute-btn-area">
-      <button id="execute" type="button" class="btn btn-primary btn-block">zipファイルでダウンロード</button>
+    <div class="button-area">
+      <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
+      <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
     </div>
-    <div id="canvas-area" style="display: none;"></div>
-  </main>
+    <div id="result" class="result-area">
+      <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
+          ({{ differencePercent }}%)</span> 圧縮しました<sup>（{{ quantity.finished }} / {{ quantity.total }}）</sup></p>
+    </div>
+    <div id="file-information" class="file-information-area">
+      <table class="file-information-table" v-if="seen">
+        <tbody>
+          <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
+            <td class="file-name" v-bind:title="file.name">{{ file.name }}</td>
+            <td class="file-size">{{ file.size }}</td>
+            <td class="compressed-size">{{ file.compressedSize }}</td>
+            <td class="progress-bar-area">
+              <div class="progress">
+                <div v-bind:id="'progress_'+file.id"
+                  class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="load-image"></div>
   <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -125,11 +147,16 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <!-- Bootstrap -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/fengyuanchen/compressorjs/dist/compressor.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="js/config.js"></script>
-  <script src="js/pdfToImage.js"></script>
+  <script src="js/vueInstance.js"></script>
+  <script src="js/compress.js"></script>
+  <script src="js/button.js"></script>
 </body>
 
 </html>

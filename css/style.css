@@ -9,7 +9,7 @@ h1 {
     margin: 10px auto;
 }
 
-main {
+.content {
     width: 500px;
     margin: auto;
 }
@@ -46,19 +46,54 @@ main {
     margin: auto;
 }
 
+/*
+div#attention {
+    margin-bottom: 20px;
+}
+*/
+
 p.attention {
     color: #999;
     font-size: small;
-    margin-top: 10px;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
-.check-area {
-    margin-bottom: 20px;
+.result-text {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid rgb(191, 214, 191);
+    border-radius: 5px;
+    /*background-color: honeydew;*/
+    background-color: rgba(225, 255, 225, 0.5);
+}
+
+.result-text>sup {
+    color: rgb(31, 128, 83);
+}
+
+.result-number {
+    color: rgb(56, 153, 56);
 }
 
 button {
     margin-bottom: 15px;
+}
+
+.progress-bar-area {
+    width: 100px;
+}
+
+#comments {
+    position: fixed;
+    top: 0px;
+    left: 65px;
+}
+
+#loading {
+    width: 60px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
 }
 
 @media screen and (max-width: 600px) {
@@ -69,7 +104,7 @@ button {
         margin-top: 5px;
         margin-bottom: 0px;
     }
-    main {
+    div.content {
         width: 100%;
         padding: 0px 10px;
     }
@@ -78,6 +113,9 @@ button {
     }
     input {
         font-size: medium;
+    }
+    #loading {
+        width: 45px;
     }
 }
 
@@ -103,6 +141,12 @@ button {
         background-color: rgb(15, 71, 27);
         border-color: rgb(50, 70, 54);
     }
+    .result-text>sup {
+        color: rgb(142, 223, 185);
+    }
+    .result-number {
+        color: rgb(139, 217, 139);
+    }
     .form-control {
         color: rgb(202, 198, 190);
         background-color: rgb(24, 26, 28);
@@ -111,7 +155,6 @@ button {
     .form-control:focus {
         color: rgb(202, 198, 190);
         background-color: rgb(24, 26, 28);
-        border-color: #0063cc;
     }
     .btn-info {
         background-color: #1593a6;
