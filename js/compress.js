@@ -153,7 +153,8 @@ function compressImages(files) {
                         //拡張子を取り除く
                         let fileName = result.name.split('.').slice(0, -1).join('.');
                         for (let j = 0; j < fileInfo.fileList.length; j++) {
-                            if (fileInfo.fileList[j].name.indexOf(fileName) != -1) {
+                            let fileListName = fileInfo.fileList[j].name.split('.').slice(0, -1).join('.');
+                            if (fileListName == fileName) {
                                 fileInfo.fileList[j].compressedSize = size + ' (-' + difference + '%)';
                                 fileInfo.fileList[j].status = 'success';
                             }
