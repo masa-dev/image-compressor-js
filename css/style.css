@@ -9,7 +9,7 @@ h1 {
     margin: 10px auto;
 }
 
-.content {
+main {
     width: 500px;
     margin: auto;
 }
@@ -104,7 +104,7 @@ button {
         margin-top: 5px;
         margin-bottom: 0px;
     }
-    div.content {
+    main {
         width: 100%;
         padding: 0px 10px;
     }
