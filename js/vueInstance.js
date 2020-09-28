@@ -206,9 +206,6 @@ const sideContent = new Vue({
                 return;
             }
 
-            console.log('executed!');
-
-
             let file;
             this.setParameters();
 
