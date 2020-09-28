@@ -46,6 +46,10 @@ fileInput.addEventListener('change', function (evt) {
         if (config.processingOnFileInput) {
             fileInfo.dropFile(evt.target.files);
             compressImages(droppedFiles);
+
+            // sideContent のパラメータ設定と画像圧縮
+            sideContent.setDroppedParameters();
+            sideContent.executeCompressImage();
         }
     }
     else {
@@ -60,8 +64,8 @@ fileInput.addEventListener('change', function (evt) {
     }
 }, false);
 
-//ロード時のchangeイベントの発生を防止
 window.onload = function () {
+    //ロード時のchangeイベントの発生を防止
     loadCheck = true;
     setTimeout(() => {
         loadCheck = false;

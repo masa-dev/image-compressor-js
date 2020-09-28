@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sideContent.css">
   <link rel="stylesheet" href="css/fileList.css">
   <link rel="stylesheet" href="css/modalWindow.css">
 </head>
@@ -18,124 +19,173 @@
 <body>
   <main>
     <h1>JPEG圧縮</h1>
-    <div id="drag-drop-area">
-      <div class="drag-drop-inside">
-        <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
-        <p>または</p>
-        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*" multiple></p>
+    <div id="main-content">
+      <div id="drag-drop-area">
+        <div class="drag-drop-inside">
+          <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
+          <p>または</p>
+          <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" accept="image/*" multiple></p>
+        </div>
       </div>
-    </div>
-    <div class="information-entry-area">
-      <div class="form-group">
-        <label for="quality">品質</label>
-        <select class="form-control" id="quality">
-          <option>0</option>
-          <option>0.1</option>
-          <option>0.2</option>
-          <option>0.3</option>
-          <option>0.4</option>
-          <option>0.5</option>
-          <option>0.6</option>
-          <option>0.7</option>
-          <option selected>0.8</option>
-          <option>0.9</option>
-          <option>1</option>
-        </select>
+      <div class="information-entry-area">
+        <div class="form-group">
+          <label for="quality">品質</label>
+          <select class="form-control" id="quality">
+            <option>0</option>
+            <option>0.1</option>
+            <option>0.2</option>
+            <option>0.3</option>
+            <option>0.4</option>
+            <option>0.5</option>
+            <option>0.6</option>
+            <option>0.7</option>
+            <option selected>0.8</option>
+            <option>0.9</option>
+            <option>1</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="max-width">最大横幅</label>
+          <input class="form-control" id="max-width" type="number" min="0" placeholder="Infinity">
+        </div>
+        <div class="form-group">
+          <label for="max-height">最大縦幅</label>
+          <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" id="only-jpeg" value="three-digits">&nbsp;&nbsp;JPEG形式のみ処理を行う</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">&nbsp;&nbsp;すべてJPEG形式に変換<sup
+              style="color: red;">（注意）</sup></label>
+        </div>
+        <div id="attention">
+          <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません</p>
+          <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="max-width">最大横幅</label>
-        <input class="form-control" id="max-width" type="number" min="0" placeholder="Infinity">
-      </div>
-      <div class="form-group">
-        <label for="max-height">最大縦幅</label>
-        <input class="form-control" id="max-height" type="number" min="0" placeholder="Infinity">
-      </div>
-      <div class="checkbox">
-        <label><input type="checkbox" id="only-jpeg" value="three-digits">&nbsp;&nbsp;JPEG形式のみ処理を行う</label>
-      </div>
-      <div class="checkbox">
-        <label><input type="checkbox" id="convert-all-to-jpeg" value="three-digits">&nbsp;&nbsp;すべてJPEG形式に変換<sup
-            style="color: red;">（注意）</sup></label>
-      </div>
-      <div id="attention">
-        <p class="attention">※<strong>JPEG形式以外</strong>は品質による圧縮が出来ません</p>
-        <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
-      </div>
-    </div>
-    <div id="config">
-      <!-- Button trigger modal -->
-      <button id="modal-link-btn" type="button" class="btn btn-link btn-sm" data-toggle="modal"
-        data-target="#exampleModalCenter" onclick="config.openModal()">
-        詳細設定
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">詳細設定</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table class="config-list">
-                <tr>
-                  <td class="config-text">
-                    ファイル選択時に処理する
-                  </td>
-                  <td class="config-switch">
-                    <input type="checkbox" id="processing-file-input" checked data-toggle="toggle" data-size="sm">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="config-text">
-                    ファイルリストを非表示にする
-                  </td>
-                  <td class="config-switch">
-                    <input type="checkbox" id="hide-file-list" data-toggle="toggle" data-size="sm">
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button id="close-modal-btn" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-              <button id="apply-config-btn" type="button" class="btn btn-primary"
-                onclick="config.applyConfig()">適用</button>
+      <div id="config">
+        <!-- Button trigger modal -->
+        <button id="modal-link-btn" type="button" class="btn btn-link btn-sm" data-toggle="modal"
+          data-target="#exampleModalCenter" onclick="config.openModal()">
+          詳細設定
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">詳細設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="config-list">
+                  <tr>
+                    <td class="config-text">
+                      ファイル選択時に処理する
+                    </td>
+                    <td class="config-switch">
+                      <input type="checkbox" id="processing-file-input" checked data-toggle="toggle" data-size="sm">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="config-text">
+                      ファイルリストを非表示にする
+                    </td>
+                    <td class="config-switch">
+                      <input type="checkbox" id="hide-file-list" data-toggle="toggle" data-size="sm">
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button id="close-modal-btn" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button id="apply-config-btn" type="button" class="btn btn-primary"
+                  onclick="config.applyConfig()">適用</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="button-area">
+        <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
+        <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
+      </div>
+      <div id="result" class="result-area">
+        <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
+            ({{ differencePercent }}%)</span> 圧縮しました<sup>（{{ quantity.finished }} / {{ quantity.total }}）</sup></p>
+      </div>
+      <div id="file-information" class="file-information-area">
+        <table class="file-information-table" v-if="seen">
+          <tbody>
+            <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
+              <td class="file-name" v-bind:title="file.name">{{ file.name }}</td>
+              <td class="file-size">{{ file.size }}</td>
+              <td class="compressed-size">{{ file.compressedSize }}</td>
+              <td class="progress-bar-area">
+                <div class="progress">
+                  <div v-bind:id="'progress_'+file.id"
+                    class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="button-area">
-      <button id="execute-btn" type="button" class="btn btn-info btn-block">再圧縮処理</button>
-      <button id="download-btn" type="button" class="btn btn-primary btn-block">画像ファイルをダウンロード</button>
+    <div id="side-content">
+      <div class="sample-images-area">
+        <div class="sample-data-wrapper" id="originai-sample-image-wrapper">
+          <h3 class="sample-image-label">元画像</h3>
+          <div class="sample-image-wrapper">
+            <img class="sample-image" id="original-sample-image" v-bind:src="imgSrc.original">
+          </div>
+        </div>
+        <div class="sample-data-wrapper" id="compressed-sample-image-wrapper">
+          <h3 class="sample-image-label">圧縮後画像</h3>
+          <div class="sample-image-wrapper">
+            <img class="sample-image" id="compressed-sample-image" v-bind:src="imgSrc.compressed">
+          </div>
+        </div>
+      </div>
+      <div class="parameter-adjustment-area">
+        <div class="btn-group d-flex" role="group" aria-label="シャッフル＆ソート開始">
+          <button v-on:click="preImage" id="pre-image-btn" type="button" class="btn btn-secondary btn-sm">pre</button>
+          <button disabled id="sample-image-pages" type="button" class="btn btn-secondary btn-sm">{{ dropped.indexToDisplay }} / {{ dropped.length }}</button>
+          <button v-on:click="nextImage" id="next-image-btn" type="button" class="btn btn-secondary btn-sm">next</button>
+        </div>
+        <div class="form-group">
+          <label for="display-scale" class="sample-input-label">表示画像の拡大（テスト用）：{{ parameters.displayScale }}</label>
+          <input oninput="sideContent.reflectDisplayScale();" type="range" id="display-scale" class="costom-range"
+            min="1" max="10" step="0.2" value="1.0">
+        </div>
+        <div class="form-group">
+          <label for="sample-image-quality" class="sample-input-label">品質（テスト用）：{{ parameters.quality }}</label>
+          <input oninput="sideContent.executeCompressImage();" type="range" id="sample-image-quality"
+            class="costom-range" min="0" max="1" step="0.1" value="0.8">
+        </div>
+        <div class="form-group">
+          <label for="sample-image-max-width" class="sample-input-label">最大横幅（テスト用）：{{ parameters.maxWidth }}</label>
+          <input oninput="sideContent.executeCompressImage();" type="number" class="form-control form-control-sm"
+            id="sample-image-max-width" placeholder="Infinity">
+        </div>
+        <div class="form-group">
+          <label for="sample-image-max-height" class="sample-input-label">最大縦幅（テスト用）：{{ parameters.maxHeight }}</label>
+          <input oninput="sideContent.executeCompressImage();" type="number" class="form-control form-control-sm"
+            id="sample-image-max-height" placeholder="Infinity">
+        </div>
+        <div id="side-content-attention">
+          <p class="attention">※<strong>JPEG形式</strong>に変換されます</p>
+          <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
+        </div>
+      </div>
     </div>
-    <div id="result" class="result-area">
-      <p class="result-text" v-if="seen">合計で <span class="result-number">{{ totalSize.renamed }}
-          ({{ differencePercent }}%)</span> 圧縮しました<sup>（{{ quantity.finished }} / {{ quantity.total }}）</sup></p>
-    </div>
-    <div id="file-information" class="file-information-area">
-      <table class="file-information-table" v-if="seen">
-        <tbody>
-          <tr v-for="file in fileList" v-bind:id="'tr_'+file.id">
-            <td class="file-name" v-bind:title="file.name">{{ file.name }}</td>
-            <td class="file-size">{{ file.size }}</td>
-            <td class="compressed-size">{{ file.compressedSize }}</td>
-            <td class="progress-bar-area">
-              <div class="progress">
-                <div v-bind:id="'progress_'+file.id"
-                  class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
-                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing</div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div id="load-image"></div>
   </main>
-  <div id="load-image"></div>
   <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
