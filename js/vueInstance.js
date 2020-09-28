@@ -194,13 +194,21 @@ const sideContent = new Vue({
             this.dropped.length = droppedFiles.length;
             this.dropped.index = 0;
 
-            if(!droppedFiles[0]) {
+            if (!droppedFiles[0]) {
                 this.dropped.indexToDisplay = 0;
             } else {
                 this.dropped.indexToDisplay = 1;
             }
         },
         executeCompressImage: function () {
+            // execution が false の場合は処理を実行しない
+            if (!this.execution) {
+                return;
+            }
+
+            console.log('executed!');
+
+
             let file;
             this.setParameters();
 
@@ -262,4 +270,8 @@ window.addEventListener('load', function () {
             sideContent.executeCompressImage();
         });
 
+    // サイドバーを非表示の場合（幅が900px以下）は処理を実行しない
+    if (document.body.clientWidth < 900) {
+        sideContent.execution = false;
+    }
 })
