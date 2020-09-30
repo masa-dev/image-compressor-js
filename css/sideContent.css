@@ -68,9 +68,3 @@
         float: none;
     }
 }
-
-@media screen and (max-width: 500px) {
-    #side-content {
-        display: none;
-    }
-}
