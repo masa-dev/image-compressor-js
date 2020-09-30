@@ -200,7 +200,7 @@ const sideContent = new Vue({
                 this.dropped.indexToDisplay = 1;
             }
         },
-        executeCompressImage: function () {
+        executeCompressImage: function (isError = false) {
             // execution が false の場合は処理を実行しない
             if (!this.execution) {
                 return;
@@ -209,7 +209,8 @@ const sideContent = new Vue({
             let file;
             this.setParameters();
 
-            if (!droppedFiles[0]) {
+            // ファイルが存在しない，又はエラーが発生している場合
+            if (!droppedFiles[0] || isError) {
                 file = this.image.default;
             }
             else {
@@ -217,7 +218,6 @@ const sideContent = new Vue({
             }
 
             this.image.resultSize.original = file.size;
-
 
             /*
             // すでに実行している処理を中止する
@@ -228,7 +228,6 @@ const sideContent = new Vue({
                 }
             }
             */
-
 
             if (this.image.compressor !== null) {
                 this.image.compressor = null;
@@ -245,9 +244,15 @@ const sideContent = new Vue({
                 convertSize: Infinity,
 
                 success(result) {
+                    // 成功時の処理
                     sideContent.image.resultSize.compressed = result.size;
                     sideContent.setNewImage(result, true);
                     sideContent.image.processing = false;
+                },
+                error(err) {
+                    // 失敗時の処理
+                    // 失敗時はデフォルトの画像を使用する．
+                    sideContent.executeCompressImage(true);
                 }
             });
         },
