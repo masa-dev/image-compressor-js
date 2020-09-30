@@ -194,11 +194,10 @@ const sideContent = new Vue({
             this.dropped.length = droppedFiles.length;
             this.dropped.index = 0;
 
-            if (!droppedFiles[0]) {
-                this.dropped.indexToDisplay = 0;
-            } else {
-                this.dropped.indexToDisplay = 1;
-            }
+            // 条件演算子
+            // DroppedFiles[0]が存在する場合，1（単位：ページ）を入れる
+            // DroppedFiles[0]が存在しない場合，0（0ページ中0ページ目）を入れる
+            this.dropped.indexToDisplay = droppedFiles[0] ? 1 : 0;
         },
         executeCompressImage: function (isError = false) {
             // execution が false の場合は処理を実行しない
