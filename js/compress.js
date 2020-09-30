@@ -73,6 +73,12 @@ window.onload = function () {
 };
 
 function compressImages(files) {
+    // ファイルが存在しない場合，処理を中止する
+    if(files.length === 0){
+        return;
+    }
+
+    // 変数の宣言
     const imageQuality = parseFloat(document.getElementById('quality').value);
     const onlyJpeg = document.getElementById('only-jpeg').checked;
     const convertJpeg = document.getElementById('convert-all-to-jpeg').checked;
