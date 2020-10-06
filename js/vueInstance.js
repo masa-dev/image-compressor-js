@@ -123,7 +123,10 @@ const sideContent = new Vue({
             compressor: null,    // Compressor.jsのオブジェクトが入る
             resultSize: {
                 original: null,
-                compressed: null
+                compressed: null,
+                originalStr: '',
+                compressedStr: '',
+                seen: true
             }
         },
         dropped: {
@@ -217,6 +220,7 @@ const sideContent = new Vue({
             }
 
             this.image.resultSize.original = file.size;
+            this.image.resultSize.originalStr = calculateSize(file.size);
 
             /*
             // すでに実行している処理を中止する
@@ -245,6 +249,8 @@ const sideContent = new Vue({
                 success(result) {
                     // 成功時の処理
                     sideContent.image.resultSize.compressed = result.size;
+                    sideContent.image.resultSize.compressedStr = calculateSize(result.size);
+                    sideContent.changeResultColor();
                     sideContent.setNewImage(result, true);
                     sideContent.image.processing = false;
                 },
@@ -255,6 +261,25 @@ const sideContent = new Vue({
                 }
             });
         },
+        changeResultColor() {
+            const compressedElement= document.getElementById('compressed-sample-size');
+
+            if(this.image.resultSize.compressed == this.image.resultSize.original) {
+                // サイズが変わっていない時
+                compressedElement.classList.remove('red');
+                compressedElement.classList.remove('green');
+            }
+            else if(this.image.resultSize.compressed < this.image.resultSize.original) {
+                // 圧縮後の方がサイズが小さいときにgreenクラスを付与
+                compressedElement.classList.remove('red');
+                compressedElement.classList.add('green');
+            }
+            else {
+                // 圧縮後の方がサイズが大きいときにredクラスを付与
+                compressedElement.classList.remove('green');
+                compressedElement.classList.add('red');
+            }
+        }
     }
 })
 

@@ -155,8 +155,10 @@
       <div class="parameter-adjustment-area">
         <div class="btn-group d-flex" role="group" aria-label="シャッフル＆ソート開始">
           <button v-on:click="preImage" id="pre-image-btn" type="button" class="btn btn-secondary btn-sm">pre</button>
-          <button disabled id="sample-image-pages" type="button" class="btn btn-secondary btn-sm">{{ dropped.indexToDisplay }} / {{ dropped.length }}</button>
-          <button v-on:click="nextImage" id="next-image-btn" type="button" class="btn btn-secondary btn-sm">next</button>
+          <button disabled id="sample-image-pages" type="button"
+            class="btn btn-secondary btn-sm">{{ dropped.indexToDisplay }} / {{ dropped.length }}</button>
+          <button v-on:click="nextImage" id="next-image-btn" type="button"
+            class="btn btn-secondary btn-sm">next</button>
         </div>
         <div class="form-group">
           <label for="display-scale" class="sample-input-label">表示画像の拡大（テスト用）：{{ parameters.displayScale }}</label>
@@ -181,6 +183,20 @@
         <div id="side-content-attention">
           <p class="attention">※<strong>JPEG形式</strong>に変換されます</p>
           <p class="attention">※JPEG形式に変換すると透過度が保てません</p>
+        </div>
+        <div class="result-of-sample-compression-area" v-if="image.resultSize.seen">
+          <table class="sample-result-table">
+            <tr>
+              <th>元のサイズ</th>
+              <th>圧縮後のサイズ</th>
+            </tr>
+            <tr>
+              <td id="original-sample-size">{{ image.resultSize.originalStr }}</td>
+              <td id="compressed-sample-size">{{ image.resultSize.compressedStr }}</td>
+            </tr>
+          </table>
+          <p class="result-of-sample-compression">
+          </p>
         </div>
       </div>
     </div>
