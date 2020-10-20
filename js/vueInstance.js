@@ -97,7 +97,12 @@ const resultOfCompression = new Vue({
             this.totalSize.difference = 0;
             this.totalSize.renamed = '0KB';
             this.differencePercent = 0;
-        }
+        }/*,
+        changeResultColor() {
+            const compressedElement = document.getElementById('compressed-size');
+
+            console.log('a');
+        }*/
     }
 })
 

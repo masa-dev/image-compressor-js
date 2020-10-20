@@ -34,6 +34,10 @@ fileArea.addEventListener('drop', function (evt) {
         if (config.processingOnFileInput) {
             fileInfo.dropFile(droppedFiles);
             compressImages(droppedFiles);
+
+            // sideContent のパラメータ設定と画像圧縮
+            sideContent.setDroppedParameters();
+            sideContent.executeCompressImage();
         }
     }
 });
@@ -74,7 +78,7 @@ window.onload = function () {
 
 function compressImages(files) {
     // ファイルが存在しない場合，処理を中止する
-    if(files.length === 0){
+    if (files.length === 0) {
         return;
     }
 
