@@ -48,6 +48,12 @@
   .parameter-adjustment-area {
     margin: 0 50px;
 
+    .btn-group {
+      button {
+        margin-bottom: 15px;
+      }
+    }
+
     .form-group {
       .sample-input-label {
         font-size: 14px;
@@ -58,6 +64,12 @@
         flex: none;
         width: 100% !important;
       }
+    }
+
+    p.attention {
+      color: #999;
+      font-size: small;
+      margin-bottom: 5px;
     }
 
     .sample-result-table {

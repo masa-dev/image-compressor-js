@@ -68,12 +68,12 @@ body {
       color: rgb(202, 198, 190);
       background-color: rgb(24, 26, 28);
       border-color: rgb(60, 60, 60);
-    }
 
-    .form-control:focus {
-      color: rgb(202, 198, 190);
-      background-color: rgb(24, 26, 28);
-      border-color: #0063cc;
+      &:focus {
+        color: rgb(202, 198, 190);
+        background-color: rgb(24, 26, 28);
+        border-color: #0063cc;
+      }
     }
 
     .btn-info {

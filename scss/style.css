@@ -112,12 +112,17 @@ body footer {
 
 #main-content #drag-drop-area .drag-drop-buttons input {
   margin: auto;
+  overflow-x: hidden;
 }
 
 #main-content .information-entry-area p.attention {
   color: #999;
   font-size: small;
   margin-bottom: 5px;
+}
+
+#main-content #config > button {
+  margin-bottom: 15px;
 }
 
 #main-content .button-area > button {
@@ -348,6 +353,10 @@ body footer {
   margin: 0 50px;
 }
 
+#side-content .parameter-adjustment-area .btn-group button {
+  margin-bottom: 15px;
+}
+
 #side-content .parameter-adjustment-area .form-group .sample-input-label {
   font-size: 14px;
 }
@@ -358,6 +367,12 @@ body footer {
       -ms-flex: none;
           flex: none;
   width: 100% !important;
+}
+
+#side-content .parameter-adjustment-area p.attention {
+  color: #999;
+  font-size: small;
+  margin-bottom: 5px;
 }
 
 #side-content .parameter-adjustment-area .sample-result-table {
