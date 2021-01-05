@@ -1,0 +1,263 @@
+/* ---  _mainContent.scss  --- */
+
+#main-content {
+  width: 500px;
+  float: left;
+  padding: 0 10px;
+  margin: 0 auto;
+
+  #drag-drop-area {
+    background-color: #f4f4f4;
+    margin: 10px;
+    padding: 10px;
+    border: #ddd dashed 5px;
+    border-radius: 15px;
+    min-height: 200px;
+    text-align: center;
+    transition: all 0.3s;
+
+    &.active {
+      border-color: rgb(128, 223, 104);
+    }
+
+    p {
+      color: #999;
+      font-weight: bold;
+      font-size: 14px;
+      font-size: 1.4em;
+    }
+
+    .drag-drop-buttons {
+      margin-top: 20px;
+      font-size: 12px;
+      font-size: 1.2em;
+
+      input {
+        margin: auto;
+      }
+    }
+  }
+
+  .information-entry-area {
+    p.attention {
+      color: #999;
+      font-size: small;
+      margin-bottom: 5px;
+    }
+  }
+
+  .button-area {
+    > button {
+      margin-bottom: 15px;
+    }
+  }
+
+  .result-area {
+    .result-text {
+      padding: 5px;
+      text-align: center;
+      border: 1px solid rgb(191, 214, 191);
+      border-radius: 5px;
+      /*background-color: honeydew;*/
+      background-color: rgba(225, 255, 225, 0.5);
+
+      > sup {
+        color: rgb(31, 128, 83);
+      }
+
+      .result-number {
+        color: rgb(56, 153, 56);
+      }
+    }
+  }
+
+  .file-information-area {
+    width: 100%;
+    max-height: 400px;
+    overflow: auto;
+    table-layout: fixed;
+    margin-bottom: 25px;
+
+    &::-webkit-scrollbar {
+      /* スクロールバーのスタイル変更 */
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      /* スクロールバーのスタイル変更 */
+      background: #fff;
+      border: none;
+      border-radius: 10px;
+      /*box-shadow: inset 0 0 2px #777;*/
+    }
+
+    &::-webkit-scrollbar-thumb {
+      /* スクロールバーのスタイル変更 */
+      background: #ccc;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    table {
+      &.file-information-table {
+        width: 100%;
+        border: solid 1px rgb(194, 194, 194);
+        border-collapse: collapse;
+        border-spacing: 0;
+        /* #file-name の省略処理に必要 */
+        table-layout: fixed;
+        border-radius: 5px;
+
+        td {
+          padding: 5px 10px;
+          border-top: solid 1px rgb(194, 194, 194);
+
+          &#file-name {
+            font-size: 14px;
+            max-width: 37%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &#file-size {
+            width: 15%;
+            font-size: 12px;
+            color: rgb(64, 117, 113);
+            text-align: center;
+          }
+
+          &#compressed-size {
+            width: 25%;
+            font-size: 12px;
+            color: rgb(50, 155, 50);
+            text-align: center;
+          }
+
+          /*&.progress-bar-area {
+            width: 100px;
+          }*/
+
+          &.progress-bar-area {
+            width: 23%;
+            padding: auto 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #main-content {
+    float: none;
+
+    .file-information-area {
+      table.file-information-table td {
+        padding: 5px;
+
+        &#file-name {
+          font-size: smaller;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #main-content {
+    width: 100%;
+    padding: 0px 10px;
+
+    #drag-drop-area {
+      p {
+        font-size: 1.3em;
+      }
+
+      .drag-drop-buttons {
+        input {
+          font-size: medium;
+        }
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #main-content {
+    #drag-drop-area {
+      background-color: rgb(24, 26, 28);
+      border-color: rgb(70, 70, 70);
+
+      &.active {
+        border-color: rgb(80, 165, 56);
+      }
+
+      p {
+        color: rgb(186, 181, 171);
+      }
+
+      .drag-drop-buttons {
+        input {
+          color: rgb(218, 215, 210);
+        }
+      }
+    }
+
+    .result-area {
+      .result-text {
+        background-color: rgb(15, 71, 27);
+        border-color: rgb(50, 70, 54);
+
+        > sup {
+          color: rgb(142, 223, 185);
+        }
+
+        .result-number {
+          color: rgb(139, 217, 139);
+        }
+      }
+    }
+
+    .file-information-area {
+      &::-webkit-scrollbar-track {
+        /* スクロールバーのスタイル変更 */
+        background-color: rgb(24, 26, 28);
+      }
+      &::-webkit-scrollbar-thumb {
+        /* スクロールバーのスタイル変更 */
+        background-color: rgb(39, 41, 43);
+      }
+
+      table {
+        &.file-information-table {
+          border-color: rgb(60, 60, 60);
+
+          td {
+            border-top-color: rgb(60, 60, 60);
+
+            &#file-size {
+              color: rgb(168, 208, 205);
+            }
+
+            &#compressed-size {
+              color: rgb(139, 217, 139);
+            }
+
+            &.progress-bar-area {
+              .bg-info {
+                background-color: #1593a6 !important;
+              }
+              .bg-success {
+                background-color: #228d3a !important;
+              }
+              .bg-danger {
+                background-color: #931925 !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

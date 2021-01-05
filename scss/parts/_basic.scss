@@ -1,0 +1,87 @@
+/* ---  _basic.scss  --- */
+
+body {
+    background-color: white;
+    color: black;
+
+    header {
+        > h1 {
+            font-size: 30px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px auto;
+        }
+    }
+
+    main {
+        width: 900px;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    footer {
+        width: 900px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    body {
+        main {
+            width: 500px;
+        }
+
+        footer {
+            width: 500px;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    html {
+        touch-action: manipulation;
+    }
+    body {
+        header {
+            > h1 {
+                margin-top: 5px;
+                margin-bottom: 0px;
+            }
+        }
+
+        main {
+            width: 100%;
+        }
+
+        footer {
+            width: 100%;
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(24, 26, 28);
+        color: rgb(218, 215, 210);
+
+        .form-control {
+            color: rgb(202, 198, 190);
+            background-color: rgb(24, 26, 28);
+            border-color: rgb(60, 60, 60);
+        }
+
+        .form-control:focus {
+            color: rgb(202, 198, 190);
+            background-color: rgb(24, 26, 28);
+            border-color: #0063cc;
+        }
+
+        .btn-info {
+            background-color: #1593a6;
+        }
+
+        .btn-primary {
+            background-color: #0063cc;
+        }
+    }
+}
