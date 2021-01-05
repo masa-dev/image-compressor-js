@@ -105,6 +105,9 @@ button {
 }
 
 @media screen and (max-width: 900px) {
+    main {
+        width: 500px;
+    }
     #main-content {
         float: none;
     }
