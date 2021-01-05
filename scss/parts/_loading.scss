@@ -1,20 +1,20 @@
 /* --- _loading.scss --- */
 #load-image {
-    > img#loading {
-        width: 60px;
-        position: fixed;
-        top: 0px;
-        left: 10px;
-    }
-    > span#comments {
-        position: fixed;
-        top: 0px;
-        left: 65px;
-    }
+  > img#loading {
+    width: 60px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
+  }
+  > span#comments {
+    position: fixed;
+    top: 0px;
+    left: 65px;
+  }
 }
 
 @media screen and (max-width: 700px) {
-    #load-image > img#loading {
-        width: 45px;
-    }
+  #load-image > img#loading {
+    width: 45px;
+  }
 }

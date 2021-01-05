@@ -1,80 +1,80 @@
 /* ---  _modalWindow.scss  --- */
 #config {
-    #modal-link-btn {
-        float: right;
-    }
+  #modal-link-btn {
+    float: right;
+  }
 
-    .modal-content {
-        > .modal-body {
-            .config-list {
-                width: 100%;
-                border-collapse: collapse;
-                border-spacing: 0;
+  .modal-content {
+    > .modal-body {
+      .config-list {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
 
-                td {
-                    padding-top: 5px;
-                    padding-bottom: 5px;
+        td {
+          padding-top: 5px;
+          padding-bottom: 5px;
 
-                    &.config-switch {
-                        width: 60px;
-                        text-align: right;
-                    }
+          &.config-switch {
+            width: 60px;
+            text-align: right;
+          }
 
-                    input.toggle {
-                        float: right;
-                    }
-                }
-
-                > li {
-                    list-style: none;
-                    padding-top: 10px;
-                    height: 35px;
-                }
-            }
+          input.toggle {
+            float: right;
+          }
         }
 
-        > .modal-footer {
-            > button {
-                margin-bottom: 0;
-            }
+        > li {
+          list-style: none;
+          padding-top: 10px;
+          height: 35px;
         }
+      }
     }
+
+    > .modal-footer {
+      > button {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-    .modal-content {
-        background-color: rgb(32, 36, 39);
+  .modal-content {
+    background-color: rgb(32, 36, 39);
 
-        > .modal-header {
-            border-color: gray;
+    > .modal-header {
+      border-color: gray;
 
-            > .close > span {
-                color: rgb(218, 215, 210);
-                text-shadow: none;
-            }
-        }
-
-        > .modal-footer {
-            border-color: gray;
-        }
-
-        .btn-light {
-            color: rgb(218, 215, 210);
-            background-color: rgb(24, 26, 28);
-            border-color: gray;
-
-            &:hover {
-                color: rgb(218, 215, 210);
-                background-color: rgb(35, 40, 44);
-            }
-        }
-
-        .toggle {
-            &.btn {
-                &.btn-light {
-                    border-color: gray;
-                }
-            }
-        }
+      > .close > span {
+        color: rgb(218, 215, 210);
+        text-shadow: none;
+      }
     }
+
+    > .modal-footer {
+      border-color: gray;
+    }
+
+    .btn-light {
+      color: rgb(218, 215, 210);
+      background-color: rgb(24, 26, 28);
+      border-color: gray;
+
+      &:hover {
+        color: rgb(218, 215, 210);
+        background-color: rgb(35, 40, 44);
+      }
+    }
+
+    .toggle {
+      &.btn {
+        &.btn-light {
+          border-color: gray;
+        }
+      }
+    }
+  }
 }
