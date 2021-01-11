@@ -84,10 +84,10 @@ body footer {
 #main-content #drag-drop-area {
   background-color: #f4f4f4;
   margin: 10px;
-  padding: 10px;
+  padding: 20px 10px;
   border: #ddd dashed 5px;
   border-radius: 15px;
-  min-height: 200px;
+  min-height: 150px;
   text-align: center;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -100,8 +100,11 @@ body footer {
 #main-content #drag-drop-area p {
   color: #999;
   font-weight: bold;
-  font-size: 14px;
-  font-size: 1.4em;
+  font-size: 1.4rem;
+}
+
+#main-content #drag-drop-area p.drag-drop-buttons {
+  margin-bottom: 5px;
 }
 
 #main-content #drag-drop-area .drag-drop-buttons {
@@ -238,10 +241,10 @@ body footer {
     padding: 0px 10px;
   }
   #main-content #drag-drop-area p {
-    font-size: 1.3em;
+    font-size: 1.2rem;
   }
   #main-content #drag-drop-area .drag-drop-buttons input {
-    font-size: medium;
+    font-size: 1.0rem;
   }
 }
 

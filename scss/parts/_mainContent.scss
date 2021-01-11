@@ -9,10 +9,10 @@
   #drag-drop-area {
     background-color: #f4f4f4;
     margin: 10px;
-    padding: 10px;
+    padding: 20px 10px;
     border: #ddd dashed 5px;
     border-radius: 15px;
-    min-height: 200px;
+    min-height: 150px;
     text-align: center;
     transition: all 0.3s;
 
@@ -23,8 +23,11 @@
     p {
       color: #999;
       font-weight: bold;
-      font-size: 14px;
-      font-size: 1.4em;
+      font-size: 1.4rem;
+
+      &.drag-drop-buttons {
+        margin-bottom: 5px;
+      }
     }
 
     .drag-drop-buttons {
@@ -178,12 +181,12 @@
 
     #drag-drop-area {
       p {
-        font-size: 1.3em;
+        font-size: 1.2rem;
       }
 
       .drag-drop-buttons {
         input {
-          font-size: medium;
+          font-size: 1.0rem;
         }
       }
     }
