@@ -10,6 +10,10 @@ window.onload = function () {
     setTimeout(() => {
         localStorage.setItem('_ic_onload', false);
     }, 100);
+
+    // 履歴の取得
+    config.history.getLocalStrage();
+    config.history.apply();
 };
 
 // ブラウザの再起動時のoninputイベント発火阻止用
@@ -117,6 +121,9 @@ function compressImages(files) {
     maxHeight = config.maxHeight;
 
     //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
+
+    // 各設定を履歴に保存する
+    config.history.save()
 
     //処理の開始
     processing = true;
