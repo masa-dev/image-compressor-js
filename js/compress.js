@@ -100,18 +100,8 @@ function compressImages(files) {
         mimeType = 'auto';
     }
 
-    //maxWidth と maxHeight の選択していないときに Infinity にする
-    if (document.getElementById('max-width').value == "") {
-        maxWidth = Infinity;
-    } else {
-        maxWidth = parseFloat(document.getElementById('max-width').value);
-    }
-
-    if (document.getElementById('max-height').value == "") {
-        maxHeight = Infinity;
-    } else {
-        maxHeight = parseFloat(document.getElementById('max-height').value);
-    }
+    maxWidth = config.maxWidth;
+    maxHeight = config.maxHeight;
 
     //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
 
