@@ -5,6 +5,24 @@ let compressedFiles = [];
 let loadCheck = false;
 let processing = false; //処理中であるかどうか
 
+window.onload = function () {
+    //ロード時のchangeイベントの発生を防止
+    setTimeout(() => {
+        localStorage.setItem('ic-onload', false);
+    }, 100);
+};
+
+// ブラウザの再起動時のoninputイベント発火阻止用
+$(window).on('mouseover', (function () {
+    window.onbeforeunload = null;
+}));
+$(window).on('mouseout', (function () {
+    window.onbeforeunload = ConfirmLeave;
+}));
+function ConfirmLeave() {
+    localStorage.setItem('ic-onload', true);
+}
+
 fileArea.addEventListener('dragover', function (evt) {
     if (!processing) {
         evt.preventDefault();
@@ -44,18 +62,20 @@ fileArea.addEventListener('drop', function (evt) {
 
 fileInput.addEventListener('change', function (evt) {
     droppedFiles = evt.target.files;
-
-    if (loadCheck == false) {
-        //ファイルインプット時に処理する
-        if (config.processingOnFileInput) {
-            fileInfo.dropFile(evt.target.files);
-            compressImages(droppedFiles);
-
-            // sideContent のパラメータ設定と画像圧縮
-            sideContent.setDroppedParameters();
-            sideContent.executeCompressImage();
-        }
+    if (localStorage.getItem('ic-onload') == "true") {
+        return;
     }
+
+    //ファイルインプット時に処理する
+    if (config.processingOnFileInput) {
+        fileInfo.dropFile(evt.target.files);
+        compressImages(droppedFiles);
+
+        // sideContent のパラメータ設定と画像圧縮
+        sideContent.setDroppedParameters();
+        sideContent.executeCompressImage();
+    }
+    /*
     else {
         for (let i = 0; i < fileInfo.fileList.length; i++) {
             setTimeout(() => {
@@ -65,16 +85,9 @@ fileInput.addEventListener('change', function (evt) {
                 fileInfo[i].fileList.status = 'file error';
             }, 100)
         }
-    }
+    }*/
 }, false);
 
-window.onload = function () {
-    //ロード時のchangeイベントの発生を防止
-    loadCheck = true;
-    setTimeout(() => {
-        loadCheck = false;
-    }, 500);
-};
 
 function compressImages(files) {
     // ファイルが存在しない場合，処理を中止する
@@ -112,7 +125,7 @@ function compressImages(files) {
         //ボタンを無効にする
         disabledOfInputAndBtn(true);
         //ロード画像を表示する
-        displayLoadingAnimation('fastparrot');
+        displayLoadingAnimation('fastparrot', 'compressing...');
     }
 
     //resultOfCompression を見えるようにする
