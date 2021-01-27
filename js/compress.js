@@ -8,7 +8,7 @@ let processing = false; //処理中であるかどうか
 window.onload = function () {
     //ロード時のchangeイベントの発生を防止
     setTimeout(() => {
-        localStorage.setItem('ic-onload', false);
+        localStorage.setItem('_ic_onload', false);
     }, 100);
 };
 
@@ -20,7 +20,7 @@ $(window).on('mouseout', (function () {
     window.onbeforeunload = ConfirmLeave;
 }));
 function ConfirmLeave() {
-    localStorage.setItem('ic-onload', true);
+    localStorage.setItem('_ic_onload', true);
 }
 
 fileArea.addEventListener('dragover', function (evt) {
@@ -62,7 +62,7 @@ fileArea.addEventListener('drop', function (evt) {
 
 fileInput.addEventListener('change', function (evt) {
     droppedFiles = evt.target.files;
-    if (localStorage.getItem('ic-onload') == "true") {
+    if (localStorage.getItem('_ic_onload') == "true") {
         return;
     }
 
