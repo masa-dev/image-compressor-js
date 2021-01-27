@@ -43,6 +43,8 @@
   }
 
   #information-entry-area {
+    margin-top: 20px;
+
     p.attention {
       color: #999;
       font-size: small;
@@ -50,7 +52,7 @@
     }
 
     .costom-range {
-      height: 35px;
+      height: 25px;
       flex: none;
       width: 100% !important;
       display: block;

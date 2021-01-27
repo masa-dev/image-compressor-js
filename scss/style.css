@@ -118,6 +118,10 @@ body footer {
   overflow-x: hidden;
 }
 
+#main-content #information-entry-area {
+  margin-top: 20px;
+}
+
 #main-content #information-entry-area p.attention {
   color: #999;
   font-size: small;
@@ -125,7 +129,7 @@ body footer {
 }
 
 #main-content #information-entry-area .costom-range {
-  height: 35px;
+  height: 25px;
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
