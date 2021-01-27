@@ -21,9 +21,9 @@ $(window).on('mouseover', (function () {
     window.onbeforeunload = null;
 }));
 $(window).on('mouseout', (function () {
-    window.onbeforeunload = ConfirmLeave;
+    window.onbeforeunload = windowLeaveEvent;
 }));
-function ConfirmLeave() {
+function windowLeaveEvent() {
     localStorage.setItem('_ic_onload', true);
 }
 
