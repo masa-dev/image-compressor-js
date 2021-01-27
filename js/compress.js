@@ -5,6 +5,28 @@ let compressedFiles = [];
 let loadCheck = false;
 let processing = false; //処理中であるかどうか
 
+window.onload = function () {
+    //ロード時のchangeイベントの発生を防止
+    setTimeout(() => {
+        localStorage.setItem('_ic_onload', false);
+    }, 100);
+
+    // 履歴の取得
+    config.history.getLocalStrage();
+    config.history.apply();
+};
+
+// ブラウザの再起動時のoninputイベント発火阻止用
+$(window).on('mouseover', (function () {
+    window.onbeforeunload = null;
+}));
+$(window).on('mouseout', (function () {
+    window.onbeforeunload = windowLeaveEvent;
+}));
+function windowLeaveEvent() {
+    localStorage.setItem('_ic_onload', true);
+}
+
 fileArea.addEventListener('dragover', function (evt) {
     if (!processing) {
         evt.preventDefault();
@@ -44,18 +66,20 @@ fileArea.addEventListener('drop', function (evt) {
 
 fileInput.addEventListener('change', function (evt) {
     droppedFiles = evt.target.files;
-
-    if (loadCheck == false) {
-        //ファイルインプット時に処理する
-        if (config.processingOnFileInput) {
-            fileInfo.dropFile(evt.target.files);
-            compressImages(droppedFiles);
-
-            // sideContent のパラメータ設定と画像圧縮
-            sideContent.setDroppedParameters();
-            sideContent.executeCompressImage();
-        }
+    if (localStorage.getItem('_ic_onload') == "true") {
+        return;
     }
+
+    //ファイルインプット時に処理する
+    if (config.processingOnFileInput) {
+        fileInfo.dropFile(evt.target.files);
+        compressImages(droppedFiles);
+
+        // sideContent のパラメータ設定と画像圧縮
+        sideContent.setDroppedParameters();
+        sideContent.executeCompressImage();
+    }
+    /*
     else {
         for (let i = 0; i < fileInfo.fileList.length; i++) {
             setTimeout(() => {
@@ -65,16 +89,9 @@ fileInput.addEventListener('change', function (evt) {
                 fileInfo[i].fileList.status = 'file error';
             }, 100)
         }
-    }
+    }*/
 }, false);
 
-window.onload = function () {
-    //ロード時のchangeイベントの発生を防止
-    loadCheck = true;
-    setTimeout(() => {
-        loadCheck = false;
-    }, 500);
-};
 
 function compressImages(files) {
     // ファイルが存在しない場合，処理を中止する
@@ -105,6 +122,9 @@ function compressImages(files) {
 
     //console.log('maxWidth: ' + maxWidth + '\nmaxHeight: ' + maxHeight);
 
+    // 各設定を履歴に保存する
+    config.history.save()
+
     //処理の開始
     processing = true;
 
@@ -112,7 +132,7 @@ function compressImages(files) {
         //ボタンを無効にする
         disabledOfInputAndBtn(true);
         //ロード画像を表示する
-        displayLoadingAnimation('fastparrot');
+        displayLoadingAnimation('fastparrot', 'compressing...');
     }
 
     //resultOfCompression を見えるようにする
