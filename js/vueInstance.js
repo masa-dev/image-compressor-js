@@ -53,8 +53,7 @@ const fileInfo = new Vue({
             }
         }
     }
-
-})
+});
 
 const resultOfCompression = new Vue({
     el: '#result',
@@ -104,8 +103,27 @@ const resultOfCompression = new Vue({
             console.log('a');
         }*/
     }
-})
+});
 
+const informationEntry = new Vue({
+    el: '#information-entry-area',
+    data: {
+        parameters: {
+            quality: 0.8,
+            maxWidth: Infinity,
+            maxHeight: Infinity
+        }
+    },
+    methods: {
+        setParameters: function () {
+            this.parameters = {
+                quality: config.imageQuality,
+                maxWidth: config.maxWidth,
+                maxHeight: config.maxHeight
+            }
+        }
+    }
+});
 
 const sideContent = new Vue({
     el: '#side-content',
@@ -177,14 +195,14 @@ const sideContent = new Vue({
             let originalImageElement = document.getElementById('original-sample-image');
             let compressedImageElement = document.getElementById('compressed-sample-image');
 
-            originalImageElement.style.transform = 'scale(' + scale + ',' + scale + ')';
-            compressedImageElement.style.transform = 'scale(' + scale + ',' + scale + ')';
+            originalImageElement.style.transform = `scale(${scale},${scale})`;
+            compressedImageElement.style.transform = `scale(${scale},${scale})`;
         },
         setParameters: function () {
             let displayScale = document.getElementById('display-scale').value;
-            let quality = document.getElementById('sample-image-quality').value;
-            let maxWidth = document.getElementById('sample-image-max-width').value;
-            let maxHeight = document.getElementById('sample-image-max-height').value;
+            let quality = config.imageQuality;
+            let maxWidth = config.maxWidth;
+            let maxHeight = config.maxHeight;
 
             if (maxWidth == '') {
                 maxWidth = Infinity;
@@ -215,6 +233,7 @@ const sideContent = new Vue({
 
             let file;
             this.setParameters();
+            informationEntry.setParameters();
 
             // ファイルが存在しない，又はエラーが発生している場合
             if (!droppedFiles[0] || isError) {
@@ -267,14 +286,14 @@ const sideContent = new Vue({
             });
         },
         changeResultColor() {
-            const compressedElement= document.getElementById('compressed-sample-size');
+            const compressedElement = document.getElementById('compressed-sample-size');
 
-            if(this.image.resultSize.compressed == this.image.resultSize.original) {
+            if (this.image.resultSize.compressed == this.image.resultSize.original) {
                 // サイズが変わっていない時
                 compressedElement.classList.remove('red');
                 compressedElement.classList.remove('green');
             }
-            else if(this.image.resultSize.compressed < this.image.resultSize.original) {
+            else if (this.image.resultSize.compressed < this.image.resultSize.original) {
                 // 圧縮後の方がサイズが小さいときにgreenクラスを付与
                 compressedElement.classList.remove('red');
                 compressedElement.classList.add('green');
@@ -286,7 +305,7 @@ const sideContent = new Vue({
             }
         }
     }
-})
+});
 
 
 window.addEventListener('load', function () {
