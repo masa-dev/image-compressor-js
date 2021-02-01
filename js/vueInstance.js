@@ -226,6 +226,9 @@ const sideContent = new Vue({
             this.dropped.indexToDisplay = droppedFiles[0] ? 1 : 0;
         },
         executeCompressImage: function (isError = false) {
+            // mainContent の内容を更新する
+            informationEntry.setParameters();
+
             // execution が false の場合は処理を実行しない
             if (!this.execution) {
                 return;
@@ -233,7 +236,6 @@ const sideContent = new Vue({
 
             let file;
             this.setParameters();
-            informationEntry.setParameters();
 
             // ファイルが存在しない，又はエラーが発生している場合
             if (!droppedFiles[0] || isError) {
