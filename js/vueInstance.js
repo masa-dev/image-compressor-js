@@ -12,11 +12,11 @@ const fileInfo = new Vue({
                 files.push({
                     name: item.name,
                     size: item.size,
-                    nameForSort: numberReplacer(item.name)
+                    nameForSort: item.name//numberReplacer(item.name)
                 });
             }
 
-            /*
+            
             // 名前を昇順でソート
             files.sort(function (a, b) {
                 if (a.nameForSort > b.nameForSort) {
@@ -25,7 +25,7 @@ const fileInfo = new Vue({
                     return -1;
                 }
             });
-            */
+            
 
             // データの追加
             for (let i = 0; i < files.length; i++) {
