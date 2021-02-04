@@ -52,6 +52,16 @@ fileArea.addEventListener('drop', function (evt) {
         droppedFiles = evt.dataTransfer.files;
         fileInput.files = droppedFiles;
 
+        // 画像比較用のソート
+        // FileList形式であるため，一度配列に直してからソートする
+        droppedFiles = [].slice.call(droppedFiles).sort(function (a, b) {
+            if (a.name > b.name) {
+                return 1;
+            } else {
+                return -1;
+            }
+        })
+
         //ファイルインプット時に処理する
         if (config.processingOnFileInput) {
             fileInfo.dropFile(droppedFiles);
@@ -66,9 +76,21 @@ fileArea.addEventListener('drop', function (evt) {
 
 fileInput.addEventListener('change', function (evt) {
     droppedFiles = evt.target.files;
+
+    // リロード時の処理を無効化する処理
     if (localStorage.getItem('_ic_onload') == "true") {
         return;
     }
+
+    // 画像比較用のソート
+    // FileList形式であるため，一度配列に直してからソートする
+    droppedFiles = [].slice.call(droppedFiles).sort(function (a, b) {
+        if (a.name > b.name) {
+            return 1;
+        } else {
+            return -1;
+        }
+    })
 
     //ファイルインプット時に処理する
     if (config.processingOnFileInput) {

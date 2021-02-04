@@ -5,10 +5,48 @@ const fileInfo = new Vue({
         fileList: []
     },
     methods: {
-        addFile: function (files) {
+        addFile: function (originFiles) {
+            // 必要な情報を持ったコピー配列を作成する
+            let files = [];
+            for (let item of originFiles) {
+                files.push({
+                    name: item.name,
+                    size: item.size,
+                    nameForSort: numberReplacer(item.name)
+                });
+            }
+
+            /*
+            // 名前を昇順でソート
+            files.sort(function (a, b) {
+                if (a.nameForSort > b.nameForSort) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            */
+
+            // データの追加
             for (let i = 0; i < files.length; i++) {
                 let size = calculateSize(files[i].size);
-                this.fileList.push({ id: i, name: files[i].name, size: size, compressedSize: '-', status: 'processing' });
+                this.fileList.push({
+                    id: i,
+                    name: files[i].name,
+                    size: size,
+                    compressedSize: '-',
+                    status: 'processing'
+                });
+            }
+
+            // 数字が桁違いでもソートできるように0を追加する関数
+            function numberReplacer(match) {
+                let num = match;
+                const numLength = String(match).length;
+                for (let i = 0; i < 20 - numLength; i++) {
+                    num = '0' + num;
+                }
+                return num;
             }
         },
         deleteFile: function () {
