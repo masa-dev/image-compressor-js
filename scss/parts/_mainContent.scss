@@ -15,9 +15,20 @@
     min-height: 150px;
     text-align: center;
     transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ececec;
+    }
+
+    &:active {
+      border-color: rgb(202, 202, 202);
+      background-color: #e4e4e4;
+    }
 
     &.active {
       border-color: rgb(128, 223, 104);
+      background-color: rgb(234, 247, 232);
     }
 
     p {
@@ -208,9 +219,20 @@
     #drag-drop-area {
       background-color: rgb(24, 26, 28);
       border-color: rgb(70, 70, 70);
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(29, 32, 36);
+      }
+  
+      &:active {
+        border-color: rgb(87, 86, 86);
+        background-color: rgb(36, 39, 44);
+      }
 
       &.active {
         border-color: rgb(80, 165, 56);
+        background-color: rgb(26, 41, 21);
       }
 
       p {

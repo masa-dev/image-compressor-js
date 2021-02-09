@@ -43,6 +43,12 @@ fileArea.addEventListener('dragleave', function (evt) {
     }
 });
 
+fileArea.addEventListener('click', function () {
+    if (!processing) {
+        fileInput.click();
+    }
+});
+
 fileArea.addEventListener('drop', function (evt) {
     if (!processing) {
         evt.preventDefault();

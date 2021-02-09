@@ -91,10 +91,21 @@ body footer {
   text-align: center;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  cursor: pointer;
+}
+
+#main-content #drag-drop-area:hover {
+  background-color: #ececec;
+}
+
+#main-content #drag-drop-area:active {
+  border-color: #cacaca;
+  background-color: #e4e4e4;
 }
 
 #main-content #drag-drop-area.active {
   border-color: #80df68;
+  background-color: #eaf7e8;
 }
 
 #main-content #drag-drop-area p {
@@ -266,9 +277,18 @@ body footer {
   #main-content #drag-drop-area {
     background-color: #181a1c;
     border-color: #464646;
+    cursor: pointer;
+  }
+  #main-content #drag-drop-area:hover {
+    background-color: #1d2024;
+  }
+  #main-content #drag-drop-area:active {
+    border-color: #575656;
+    background-color: #24272c;
   }
   #main-content #drag-drop-area.active {
     border-color: #50a538;
+    background-color: #1a2915;
   }
   #main-content #drag-drop-area p {
     color: #bab5ab;
