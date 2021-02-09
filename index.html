@@ -175,10 +175,12 @@
             <tr>
               <th>元のサイズ</th>
               <th>圧縮後のサイズ</th>
+              <th>圧縮割合</th>
             </tr>
             <tr>
-              <td id="original-sample-size">{{ image.resultSize.originalStr }}</td>
+              <td>{{ image.resultSize.originalStr }}</td>
               <td id="compressed-sample-size">{{ image.resultSize.compressedStr }}</td>
+              <td>{{ image.resultSize.compressionRatio }}</td>
             </tr>
           </table>
           <p class="result-of-sample-compression">

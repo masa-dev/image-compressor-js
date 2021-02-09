@@ -4,6 +4,7 @@ let droppedFiles = [];  //画像ファイルを格納する変数
 let compressedFiles = [];
 let loadCheck = false;
 let processing = false; //処理中であるかどうか
+let onInputButton = false;
 
 window.onload = function () {
     //ロード時のchangeイベントの発生を防止
@@ -44,7 +45,7 @@ fileArea.addEventListener('dragleave', function (evt) {
 });
 
 fileArea.addEventListener('click', function () {
-    if (!processing) {
+    if (!processing && !onInputButton) {
         fileInput.click();
     }
 });
@@ -120,6 +121,13 @@ fileInput.addEventListener('change', function (evt) {
     }*/
 }, false);
 
+fileInput.addEventListener('mouseover', function() {
+    onInputButton = true;
+});
+
+fileInput.addEventListener('mouseout', function() {
+    onInputButton = false;
+});
 
 function compressImages(files) {
     // ファイルが存在しない場合，処理を中止する
@@ -264,7 +272,8 @@ function compressImages(files) {
                 $('#progress_' + i).removeClass('bg-info progress-bar-striped');
                 $('#progress_' + i).addClass('bg-danger');
                 $('#progress_' + i).html('Refused');
-                fileInfo[i].fileList.status = 'Different file';
+                console.log(fileInfo);
+                fileInfo.fileList[i].status = 'Different file';
             }, 100)
 
             //表示する個数の更新

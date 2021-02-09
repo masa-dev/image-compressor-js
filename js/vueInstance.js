@@ -16,7 +16,7 @@ const fileInfo = new Vue({
                 });
             }
 
-            
+
             // 名前を昇順でソート
             files.sort(function (a, b) {
                 if (a.nameForSort > b.nameForSort) {
@@ -25,7 +25,7 @@ const fileInfo = new Vue({
                     return -1;
                 }
             });
-            
+
 
             // データの追加
             for (let i = 0; i < files.length; i++) {
@@ -187,6 +187,7 @@ const sideContent = new Vue({
                 compressed: null,
                 originalStr: '',
                 compressedStr: '',
+                compressionRatio: 0,
                 seen: true
             }
         },
@@ -314,6 +315,7 @@ const sideContent = new Vue({
                     // 成功時の処理
                     sideContent.image.resultSize.compressed = result.size;
                     sideContent.image.resultSize.compressedStr = calculateSize(result.size);
+                    sideContent.calculatePercentage();
                     sideContent.changeResultColor();
                     sideContent.setNewImage(result, true);
                     sideContent.image.processing = false;
@@ -343,6 +345,10 @@ const sideContent = new Vue({
                 compressedElement.classList.remove('green');
                 compressedElement.classList.add('red');
             }
+        },
+        calculatePercentage: function () {
+            this.image.resultSize.compressionRatio =
+                (Math.floor((1 - this.image.resultSize.compressed / this.image.resultSize.original) * 100 * 10) / 10) + '%';
         }
     }
 });
