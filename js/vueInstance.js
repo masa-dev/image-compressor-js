@@ -136,7 +136,7 @@ const resultOfCompression = new Vue({
             this.differencePercent = 0;
         }/*,
         changeResultColor() {
-            const compressedElement = document.getElementById('compressed-size');
+            const element = document.getElementById('compressed-size');
 
             console.log('a');
         }*/
@@ -328,22 +328,29 @@ const sideContent = new Vue({
             });
         },
         changeResultColor() {
-            const compressedElement = document.getElementById('compressed-sample-size');
+            const idList = [
+                'compressed-sample-size',
+                'sample-compression-ratio'
+            ]
 
-            if (this.image.resultSize.compressed == this.image.resultSize.original) {
-                // サイズが変わっていない時
-                compressedElement.classList.remove('red');
-                compressedElement.classList.remove('green');
-            }
-            else if (this.image.resultSize.compressed < this.image.resultSize.original) {
-                // 圧縮後の方がサイズが小さいときにgreenクラスを付与
-                compressedElement.classList.remove('red');
-                compressedElement.classList.add('green');
-            }
-            else {
-                // 圧縮後の方がサイズが大きいときにredクラスを付与
-                compressedElement.classList.remove('green');
-                compressedElement.classList.add('red');
+            for (let id of idList) {
+                const element = document.getElementById(id);
+
+                if (this.image.resultSize.compressed == this.image.resultSize.original) {
+                    // サイズが変わっていない時
+                    element.classList.remove('red');
+                    element.classList.remove('green');
+                }
+                else if (this.image.resultSize.compressed < this.image.resultSize.original) {
+                    // 圧縮後の方がサイズが小さいときにgreenクラスを付与
+                    element.classList.remove('red');
+                    element.classList.add('green');
+                }
+                else {
+                    // 圧縮後の方がサイズが大きいときにredクラスを付与
+                    element.classList.remove('green');
+                    element.classList.add('red');
+                }
             }
         },
         calculatePercentage: function () {
