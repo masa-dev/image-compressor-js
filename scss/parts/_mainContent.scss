@@ -49,6 +49,7 @@
       input {
         margin: auto;
         overflow-x: hidden;
+        cursor: pointer !important;
       }
     }
   }
@@ -207,7 +208,7 @@
 
       .drag-drop-buttons {
         input {
-          font-size: 1.0rem;
+          font-size: 1rem;
         }
       }
     }
@@ -224,7 +225,7 @@
       &:hover {
         background-color: rgb(29, 32, 36);
       }
-  
+
       &:active {
         border-color: rgb(87, 86, 86);
         background-color: rgb(36, 39, 44);

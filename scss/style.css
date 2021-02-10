@@ -127,6 +127,7 @@ body footer {
 #main-content #drag-drop-area .drag-drop-buttons input {
   margin: auto;
   overflow-x: hidden;
+  cursor: pointer !important;
 }
 
 #main-content #information-entry-area {
@@ -269,7 +270,7 @@ body footer {
     font-size: 1.2rem;
   }
   #main-content #drag-drop-area .drag-drop-buttons input {
-    font-size: 1.0rem;
+    font-size: 1rem;
   }
 }
 
