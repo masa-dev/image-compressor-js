@@ -65,19 +65,6 @@ body footer {
     background-color: #181a1c;
     border-color: #0063cc;
   }
-  body .custom-range::-webkit-slider-runnable-track {
-    background-color: #272b30;
-    color: gray;
-  }
-  body .custom-range::-webkit-slider-thumb:active {
-    background-color: #409cff;
-  }
-  body .custom-range::-moz-range-track {
-    background-color: #272b30;
-  }
-  body .custom-range::-moz-range-thumb:active {
-    background-color: #409cff;
-  }
   body .btn-info {
     background-color: #1593a6;
   }

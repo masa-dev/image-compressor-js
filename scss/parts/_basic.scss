@@ -76,30 +76,6 @@ body {
       }
     }
 
-    // input[range]のダークモード適用
-    .custom-range {
-      // 
-      &::-webkit-slider-runnable-track {
-        background-color: #272b30;
-        color: gray;
-      }
-      &::-webkit-slider-thumb {
-        &:active {
-          background-color: #409cff;
-        }
-      }
-
-      &::-moz-range-track {
-        background-color: #272b30;
-      }
-      &::-moz-range-thumb {
-        &:active {
-          background-color: #409cff;
-        }
-      }
-    }
-    // End of input[range]のダークモード適用
-
     .btn-info {
       background-color: #1593a6;
     }
