@@ -121,17 +121,18 @@ fileInput.addEventListener('change', function (evt) {
     }*/
 }, false);
 
-fileInput.addEventListener('mouseover', function() {
+fileInput.addEventListener('mouseover', function () {
     onInputButton = true;
 });
 
-fileInput.addEventListener('mouseout', function() {
+fileInput.addEventListener('mouseout', function () {
     onInputButton = false;
 });
 
 function compressImages(files) {
     // ファイルが存在しない場合，処理を中止する
     if (files.length === 0) {
+        resultOfCompression.seen = false;
         return;
     }
 
@@ -173,12 +174,7 @@ function compressImages(files) {
 
     //resultOfCompression を見えるようにする
     resultOfCompression.resetValue();
-    if (files.length == 0) {
-        resultOfCompression.seen = false;
-    }
-    else if (resultOfCompression.seen === false) {
-        resultOfCompression.seen = true;
-    }
+    resultOfCompression.seen = true;
     //個数の表示のリセット
     resultOfCompression.resetQuantity(files.length);
 
