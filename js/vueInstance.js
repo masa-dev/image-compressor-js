@@ -134,12 +134,7 @@ const resultOfCompression = new Vue({
             this.totalSize.difference = 0;
             this.totalSize.renamed = '0KB';
             this.differencePercent = 0;
-        }/*,
-        changeResultColor() {
-            const element = document.getElementById('compressed-size');
-
-            console.log('a');
-        }*/
+        }
     }
 });
 
@@ -243,12 +238,9 @@ const sideContent = new Vue({
             let maxWidth = config.maxWidth;
             let maxHeight = config.maxHeight;
 
-            if (maxWidth == '') {
-                maxWidth = Infinity;
-            }
-            if (maxHeight == '') {
-                maxHeight = Infinity;
-            }
+            // 左辺がfalsyである場合にInfinityにする
+            maxWidth ||= Infinity;
+            maxHeight ||= Infinity;
 
             this.parameters.displayScale = parseFloat(displayScale);
             this.parameters.quality = parseFloat(quality);
@@ -284,18 +276,9 @@ const sideContent = new Vue({
                 file = droppedFiles[this.dropped.index];
             }
 
+            
             this.image.resultSize.original = file.size;
             this.image.resultSize.originalStr = calculateSize(file.size);
-
-            /*
-            // すでに実行している処理を中止する
-            if (this.image.processing == true) {
-                console.log(this.image.compressor);
-                if (this.image.compressor.aborted == false) {
-                    this.image.compressor.abort();
-                }
-            }
-            */
 
             if (this.image.compressor !== null) {
                 this.image.compressor = null;
